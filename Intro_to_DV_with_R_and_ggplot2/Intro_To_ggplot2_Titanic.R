@@ -17,8 +17,8 @@ View(titanic)
 
 #Look at the variable structures
 str(titanic)
-#Set up factors
 
+#Set up factors
 titanic$Pclass <- as.factor(titanic$Pclass)
 titanic$Survived <- as.factor(titanic$Survived)
 titanic$Sex <- as.factor(titanic$Sex)
@@ -46,31 +46,32 @@ ggplot(data = <DATA>) +
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x= cty, y = hwy))
 
+# R is a language and can manipulated like a real language
 #SIMPLIFIED EXAMPLE
 ggplot(mpg) + geom_point(aes(cty,hwy))
 ggplot(mpg, aes(cty,hwy)) + geom_point()
 
-### Part 1 Using Categorical Data
+### Part 1 Using Categorical Data ----------------------------------------------
 
 ## First question: What was the survial rate or what was the distribution of survived vs. perished?
-# Remember the variable survived is a factor (yes or no)
+# Do you remember what type of variable survived is?
 
 #Plot a bar graph of survival 
 ggplot(data = titanic, aes(x = Survived)) + geom_bar()
 
-#Some times it is difficult to get exact distribution
+#Sometimes it is difficult to visualize the exact distributions
 #So we can look up the percentages using prop.table()
 prop.table(table(titanic$Survived))
 #~61% perished and ~38% survived
 
 # Lets clean this graph up a bit
-#This simple bit of code produced publishable graphics (albeit simple)
+#This simple bit of code produced publishable graphics (You just did data visualization!!)
 ggplot(titanic, aes(Survived)) + geom_bar() +
   labs(y = "Passenger Count", title = "Passenger Survival Rate") + 
   theme_bw()
 
 ##Second Question: What was the survival rate by gender?
-#Remember the addage "women and children first"
+#Remember the addage "women and children first"? Is this true?
 ggplot(data = titanic, aes(x=Sex, fill = Survived)) + geom_bar()
 
 ggplot(titanic, aes(Sex, fill =Survived)) + geom_bar() +
@@ -96,10 +97,10 @@ ggplot(titanic, aes(Sex, fill =Survived)) +
   labs(x = "Gender",y = "Passenger Count", title = "Passenger Survival Rate by Gender") + 
   theme_bw()
 
-#What trends do you see? What gender and ticket class are most and least likely to survive?
+#What trends do you see? What gender and ticket classes are most and least likely to survive?
 
 
-###Part 2 using numerical data
+###Part 2 using numerical data -------------------------------------------------
 #Question 5: What was the distribution of passenger ages
 #Histogram are similiar to bar charts except they use numerical/continuous data
 ggplot(titanic, aes(x = Age)) + geom_histogram()
@@ -134,7 +135,7 @@ ggplot(titanic, aes(x = Survived, y = Age)) +
 ?geom_boxplot #Computed variables
 
 
-###Part 3: Telling a the Story with a single visualization
+###Part 3: Telling a the Story with a single visualization---------------------
 
 ggplot(titanic, aes(x = Age, fill = Survived)) +
   geom_density(alpha = 0.5) + #Alpha is transparency control
