@@ -172,27 +172,56 @@ ggplot(data = <DATA>) +
   
 ##Lets create Bar charts using geom_bar and geom_col
 #Counts of each class
-ggplot(data=mpg) + geom_bar(mapping = aes(x=class))
+ggplot(data=mpg) + 
+  geom_bar(mapping = aes(x=class))
 
 #Counts of each manufacturer
-ggplot(data=mpg) + geom_bar(mapping = aes(x=manufacturer))  
+ggplot(data=mpg) + 
+  geom_bar(mapping = aes(x=manufacturer))  
 
 #Once you are comfortable you can remove the argument names
-ggplot(mpg) + geom_bar(aes(class))
-ggplot(mpg) + geom_bar(aes(manufacturer))  
+ggplot(mpg) + 
+  geom_bar(aes(class))
 
-##Lets use Geom_col to demostrate a stacked chart
-ggplot(data=mpg) + geom_bar(mapping = aes(x=manufacturer, fill = cyl), position = "stack")  
-# This doesn't look right, What is wrong?
-# Lets convert cylinders to factors instead of numbers
+ggplot(mpg) + 
+  geom_bar(aes(manufacturer))  
+
+##Lets add another dimension using a stacked chart
+ggplot(data=mpg) + 
+  geom_bar(mapping = aes(x=manufacturer, fill = cyl),
+           position = "stack")
+
+#What is wrong with this graph? What do we need to change about the cyl variable?
+
+#Lets convert cylinders to factors instead of numbers
 mpg$cyl <- as.factor(mpg$cyl)
+ggplot(data=mpg) + geom_bar(mapping = aes(x=manufacturer, fill = cyl),
+                            position = "stack")  
 
-ggplot(data=mpg) + geom_bar(mapping = aes(x=manufacturer, fill = cyl), position = "stack")  
-
-#Lets create a scatter plot using two variables 
-ggplot(data=mpg) + geom_point(mapping = aes(x=cty, y=hwy))
+##Lets create a scatter plot using two variables 
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x=cty, y=hwy))
 
 # Lets add a third variable using Color
 #We can also use shape and size to delineate features
 #Hint size should be for quantitative values and shapes can be difficult to delineate
-ggplot(data=mpg) + geom_point(mapping = aes(x=cty, y=hwy, color = class))
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x=cty, y=hwy, color = class))
+
+##Facets are used to divide the results into multiple charts by a variable
+#Look back at the grammar of graphics template
+ggplot(data=mpg) + 
+  geom_point(mapping = aes(x=cty, y=hwy)) + 
+  facet_wrap(~class)
+
+## This graphic needs some cleaning up
+#Add a theme
+#Add Title
+#Add X and Y Labels
+ggplot(data=mpg) + 
+  geom_point(mapping = aes(x=cty, y=hwy)) + 
+  facet_wrap(~class) +
+  theme_bw() +
+  labs(title = "Vehicle Fuel Efficiency", x="City (MPG)", y = "Highway (MPG)")
+  
+
