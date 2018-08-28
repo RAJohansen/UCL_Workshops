@@ -63,7 +63,7 @@ seq2 <- seq(1,10, length.out = 5) #Defined number of values
 
 # Install the tidyverse package
 # You only need to install a package once on your PC
-install.packages("tidyverse")
+#install.packages("tidyverse")
 
 #Run the package
 #This has to be done everytime you open a new R session
@@ -170,6 +170,9 @@ ggplot(data = <DATA>) +
   <SCALE_FUNCTION> +
   <THEME_FUNCTION>
   
+#Explore the Geoms
+geom_
+    
 ##Lets create Bar charts using geom_bar and geom_col
 #Counts of each class
 ggplot(data=mpg) + 
@@ -224,4 +227,14 @@ ggplot(data=mpg) +
   theme_bw() +
   labs(title = "Vehicle Fuel Efficiency", x="City (MPG)", y = "Highway (MPG)")
   
+# TASK 4 # 
+# Use the table you created from section 2, to create your own data visualization
+
+my_plot <- ggplot(df) + 
+  geom_point(aes(x=A, y=B, color = C)) +
+  theme_classic() +
+  labs(title = "My First R Plot", x="A", y = "B")
+
+#Save your output
+ggsave(filename = "My_Plot",plot = my_plot, device = "png", path = "C:/temp")
 
