@@ -146,3 +146,53 @@ stat.desc(df)
 # TASK 3A #
 #How does this function compare to the speed and simplicity of your current abilities to find this information?
 #What tools do you currently use?
+
+
+### Visualizing and plotting Data --------------------------------------------------------------------
+#install.packages("ggplot2")
+library("ggplot2")
+
+##load the default mtcars dataset from R inself
+mpg <- mpg
+
+##Explore the new dataset
+View(mpg)
+summary(mpg)
+str(mpg)
+
+#Grammar of Graphics Template
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>),
+                  stat = <STAT>,
+                  position = <POSITION>) +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION> + 
+  <SCALE_FUNCTION> +
+  <THEME_FUNCTION>
+  
+##Lets create Bar charts using geom_bar and geom_col
+#Counts of each class
+ggplot(data=mpg) + geom_bar(mapping = aes(x=class))
+
+#Counts of each manufacturer
+ggplot(data=mpg) + geom_bar(mapping = aes(x=manufacturer))  
+
+#Once you are comfortable you can remove the argument names
+ggplot(mpg) + geom_bar(aes(class))
+ggplot(mpg) + geom_bar(aes(manufacturer))  
+
+##Lets use Geom_col to demostrate a stacked chart
+ggplot(data=mpg) + geom_bar(mapping = aes(x=manufacturer, fill = cyl), position = "stack")  
+# This doesn't look right, What is wrong?
+# Lets convert cylinders to factors instead of numbers
+mpg$cyl <- as.factor(mpg$cyl)
+
+ggplot(data=mpg) + geom_bar(mapping = aes(x=manufacturer, fill = cyl), position = "stack")  
+
+#Lets create a scatter plot using two variables 
+ggplot(data=mpg) + geom_point(mapping = aes(x=cty, y=hwy))
+
+# Lets add a third variable using Color
+#We can also use shape and size to delineate features
+#Hint size should be for quantitative values and shapes can be difficult to delineate
+ggplot(data=mpg) + geom_point(mapping = aes(x=cty, y=hwy, color = class))
