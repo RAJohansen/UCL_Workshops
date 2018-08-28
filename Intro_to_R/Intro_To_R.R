@@ -11,7 +11,6 @@
 
 
 ### R Interface Basics--------------------------------------------------------------
-
 ## R as a Calculator
 #simple to complex equations
 1+2
