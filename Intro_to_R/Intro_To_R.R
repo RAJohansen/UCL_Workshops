@@ -53,8 +53,8 @@ seq(1,10)
 
 # TASK 1B #
 #Create a sequence of numbers from 1 to 10 by 0.5 and save it to an object called Seq1
-seq1 <- seq(1,10, by =0.5) #define step by value
-seq2 <- seq(1,10, length.out = 5) #Defined number of values
+Seq <- seq(1,10, by =0.5) #define step by value
+Seq2 <- seq(1,10, length.out = 5) #Defined number of values
 
 
 ### Working with data table (Tibble)------------------------------------------------------
