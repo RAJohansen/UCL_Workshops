@@ -226,7 +226,7 @@ ggplot(data=mpg) +
   geom_point(mapping = aes(x=cty, y=hwy)) + 
   facet_wrap(~class) +
   theme_bw() +
-  labs(title = "Vehicle Fuel Efficiency", x="City (MPG)", y = "Highway (MPG)")
+  labs(title = "Vehicle Fuel Efficiency", x="City\n(MPG)", y = "Highway\n(MPG)")
   
 # TASK 4 # 
 # Use the table you created from section 2, to create your own data visualization

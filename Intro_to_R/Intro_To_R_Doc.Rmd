@@ -223,8 +223,7 @@ str(mpg)
 summary(mpg)
 ```
 
-######**The Grammar of Graphics**
-**Template**
+#####**The Grammar of Graphics**
 Don't Freak Out!
 ```{r, eval=FALSE}
 ggplot(data = <DATA>) +   
@@ -237,7 +236,7 @@ ggplot(data = <DATA>) +
   <THEME_FUNCTION>  
 ```
 
-######**Exploring Geoms**
+#####**Exploring Geoms**
 
 ```{r, eval=FALSE}
 geom_
@@ -247,7 +246,113 @@ geom_boxplot
 geom_line
 geom_violin
 ```
-  
+
+#####**Creating Basic Data Visualizations**  
+
+**Bar Charts**   
+First lets look at a bar chart showing the counts of each class.
+
+```{r}
+library(ggplot2)
+ggplot(data=mpg) + 
+  geom_bar(mapping = aes(x=class))
+```
+
+By simply changing the x axis from class to manufacture we can create a new bar chart displaying the counts of each manufacture.  
+
+```{r}
+ggplot(data=mpg) + 
+  geom_bar(mapping = aes(x=manufacturer))
+```
+
+Once you are more comfortable with this process you can remove the arguement names to simplify the code.  
+
+```{r, eval=FALSE}
+ggplot(data=mpg) + 
+  geom_bar(mapping = aes(x=class))
+
+ggplot(data=mpg) + 
+  geom_bar(mapping = aes(x=manufacturer))
+```
+
+We can add another dimension to our chart to display counts by manufacturer with each manufacture total being separated into colors corresponding to cylinder counts.
+
+**Hint** Look back at the grammar of graphics template to see where position is be placed
+
+```{r}
+ggplot(data=mpg) + 
+  geom_bar(mapping = aes(x=manufacturer, fill = cyl),
+           position = "stack")
+```
+
+This doesn't look right! What went wrong? 
+**Hint** Examine the structure of the data again to see what type of data cyl is classified as.  
+
+We can fix this by manually changing the cyl column from a numeric value to a factor. Then re-running our code from above.  
+
+What stands out to you? Which manufacturers focus on performance, which on efficiency?
+
+```{r}
+mpg$cyl <- as.factor(mpg$cyl)
+ggplot(data=mpg) + geom_bar(mapping = aes(x=manufacturer, fill = cyl),
+                            position = "stack") 
+```
+
+**Scatter Plots**  
+Using scatter plots we can explore and compare two continuous varibles.  
+```{r}
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x=cty, y=hwy))
+```
+
+We can evaluate additional variables with the addition of color, shapes, and sizes.  
+**Hint** Be aware that using too many colors, shapes, and sizes can conflate your message. Rule of thumb is to use less than 6 colors or shapes, and only use size for continuous variables.
+```{r}
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x=cty, y=hwy, color = class))
+```
+
+**Facet Grids**  
+Facets are extremely useful when you want to display information grouped by a specific variable.  
+For example we can show the same scatter plot from above but use facet to show each class within its own scatter plot window.  
+
+```{r}
+ggplot(data=mpg) + 
+  geom_point(mapping = aes(x=cty, y=hwy)) + 
+  facet_wrap(~class)
+```
+
+#####**Adding Graphical Elements**
+All the plots we have made so far are using the defaults.  
+These defaults are fine when quickly exploring data, but are not very aesthetically appealing.  
+We can use themes and lables to better present and explain our data.  
+
+There are many other tools, packages, and techniques that can utilized to manipulate the graphics in R, but this is beyond the scope of our intro workshop.  
+
+```{r}
+ggplot(data=mpg) + 
+  geom_point(mapping = aes(x=cty, y=hwy)) + 
+  facet_wrap(~class) +
+  theme_bw() +
+  labs(title = "Vehicle Fuel Efficiency", x="City\n(MPG)", y = "Highway\n(MPG)")
+```
+
+
+##### <span style = "color:blue">**TASK 4A**</span>  
+Lets put it all together and use the table you created from section 2 to your own data visualization.  
+
+```{r}
+
+```
+
+**Saving a Plot**
+Congratulations!!! You have successfully created your own data and data visualizion.  
+The final step is to save your plot using ggsave.
+```{r}
+ggsave(filename = "My_Plot",plot = my_plot, device = "png", path = "C:/temp")
+
+```
+
 
 ### **Answers**
 ##### <span style = "color:blue">**TASK 1A**</span>  
@@ -288,5 +393,15 @@ Based on this idea, What code would return the 3rd through 5th rows for the 2nd 
 
 ```{r, eval=FALSE}
 df[3:5,2:3]
+```
+
+##### <span style = "color:blue">**TASK 4A**</span>  
+Use the table you created from section 2 and create your own data visualization
+
+```{r}
+my_plot <- ggplot(df) + 
+  geom_point(aes(x=A, y=B, color = C)) +
+  theme_classic() +
+  labs(title = "My First R Plot", x="A", y = "B")
 ```
 
