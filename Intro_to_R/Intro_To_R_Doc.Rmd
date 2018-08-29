@@ -53,22 +53,24 @@ Function formating: function_name(arg1 = val1, arg2 = val2)
 **HINT:** if you can't remember exactly what function you are looking we can use Tab    
 Now that you found the function, How do you use it?  
 **HINT:** Use the ? to find R documentation on an object  
-  
-##### <span style = "color:blue">**TASK 1A**</span>  
-Create a sequence of numbers from 1 to 10 using the seq() function  
 
 ```{r, eval = FALSE}
 ?seq()
 ```
+##### <span style = "color:blue">**TASK 1A**</span>  
+How would you create a sequence of numbers from 1 to 10 using the seq() function?   
+```{r}
 
-#####<span style="color:blue">**TASK 1B**</span>  
-Create a sequence of numbers from 1 to 10 by 0.5 and save it to an object called Seq  
-
-```{r, eval = FALSE}
-Seq <- seq(1,10, by =0.5) #define step by value  
-Seq2 <- seq(1,10, length.out = 5) #Defined number of values  
 ```
 
+
+#####<span style="color:blue">**TASK 1B**</span>  
+How would you create a sequence of numbers from 1 to 10 by 0.5 and save it to an object called Seq?  
+Optional: Create a equal interval sequence from 1:20 that is 5 numbers long
+
+```{r}
+
+```
 
 ### **Working with Data Tables**
 
@@ -85,6 +87,7 @@ library(tidyverse)
 ##### **Quibbles with Tibbles**
 Stolen from a tweet from Hadley Wickham  
 **Tibbles** are modified versions of data.frames which make life in R a little easier.  
+The tibble package and function is already installed under the tidyverse.  
 
 Here is an example of a tibble with 4 variables with 10 values using diffent methods 
 
@@ -100,13 +103,10 @@ df_exp <- tibble::tibble(
 ```
 
 #####<span style="color:blue">**TASK 2A**</span>  
-Create a new tibble called "df" with two variables ("A" and "B") each with 20 different sets of observations.  
+What code would create a new tibble called "df" with two variables ("A" and "B") each with 20 different sets of observations?  
   
-```{r, eval =FALSE}
-df <- tibble(
-  A = seq(1,20),
-  B = rnorm(20)
-)
+```{r}
+
 ```
 
 
@@ -133,16 +133,16 @@ df[5,]
 #####<span style="color:blue">**TASK 2B**</span>  
 What code would return the value in row 10 of column 3? 
 
-```{r, eval=FALSE}
-df[10,3]
+```{r}
+
 ```
 
 
 #####<span style="color:blue">**TASK 2C**</span>  
-Based on this idea, What code would return the 3rd through 5th rows for the 2nd and 3rd columns.  
+Based on this idea, What code would return the 3rd through 5th rows for the 2nd and 3rd columns?  
 
-```{r, eval=FALSE}
-df[3:5,2:3]
+```{r}
+
 ```
 
 ##### **Saving a data table**
@@ -153,10 +153,140 @@ write_csv(df, "C:/temp/my_table.csv")
 ```
 
 
+### **Exploring and Summarizing Data**
+
+##### **Opening CSV Files**
+Using the read.csv function we can open the CSV table data we created from before.    
+
+```{r, eval=FALSE}
+df <- read.csv("C:/temp/my_table.csv")
+```
+
+##### **Adding a new column to a data set**
+We can add a new column to or existing data set by using the dollar sign ($) symbol with the name we want for our new column after symbol.  We want to add some non-numeric data to our table, so let use the letters a-t or letters that correspond to the 1st through 20th letter.  
+```{r, eval=FALSE}
+df$Name <- letters[1:20]
+```
+
+##### **Viewing a data set**
+We can view our data in multiple ways but typically this is done by clicking the data set in the top left corner under the environment tab or using the View() function.  
+
+Sometimes it is also important to view all of the columns or variables in a data set, this can be done using the names() function.  
+
+Examining the structure of the data set is extremely important especially when we need to run analyses or visualize your data.  
+
+**Hint** always view your data table and look at the structure of your data before working with a new data set.  
+
+```{r, eval=FALSE}
+View(df)
+names(df)
+str(df)
+```
+
+##### **Summarizing Data and Descriptive Statsitics**
+
+Another very helpful function is summary(), which provides the basic overview of your data including min, max, quartiles, median, etc.   
+
+If further statistical information is needed, use the stat.desc() function from the pastecs package as an effecient method to explore basic (similar to summary), descriptive statsitcal, and nromal distribution information. Use ?stat.desc for more information.  
+
+```{r, eval=FALSE}
+summary(df)
+
+#install.packages("pastecs")
+library(pastecs)
+?stat.desc()
+stat.desc(df)
+```
+
+### **Visualizing and Plotting Data**
+The R community has a choice between base R plotting and ggplot2  
+The community is split on which they prefer, but I find ggplot2 easier to teach and learn when new to R programming. 
+
+In order to use this package we must install and download ggplot2
+
+```{r, eval=FALSE}
+#install.packages("ggplot2")
+library("ggplot2")
+```
+
+We will use a predefined data set that is built into R for this section.
+
+The MPG data set is a table 234 observations and 11 variables focusing on car performance and efficieny. Load, view, and explore the dataset. 
+
+```{r, eval=FALSE}
+#Load and save the data set into our working environment
+mpg <- mpg
+
+#View and explore the data
+View(mpg)
+str(mpg)
+summary(mpg)
+```
+
+######**The Grammar of Graphics**
+**Template**
+Don't Freak Out!
+```{r, eval=FALSE}
+ggplot(data = <DATA>) +   
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>),  
+                  stat = <STAT>,  
+                  position = <POSITION>) +  
+  <COORDINATE_FUNCTION> +  
+  <FACET_FUNCTION> +   
+  <SCALE_FUNCTION> +  
+  <THEME_FUNCTION>  
+```
+
+######**Exploring Geoms**
+
+```{r, eval=FALSE}
+geom_
+geom_bar
+geom_point
+geom_boxplot
+geom_line
+geom_violin
+```
+  
+
+### **Answers**
+##### <span style = "color:blue">**TASK 1A**</span>  
+How would you create a sequence of numbers from 1 to 10 using the seq() function?  
+```{r}
+seq(1,10)
+```
+
+#####<span style="color:blue">**TASK 1B**</span>  
+How would you create a sequence of numbers from 1 to 10 by 0.5 and save it to an object called Seq?  
+Optional: Create a equal interval sequence from 1:20 that is 5 numbers long  
+
+```{r, eval = FALSE}
+Seq <- seq(1,10, by =0.5) #define step by value  
+Seq2 <- seq(1,20, length.out = 5) #Defined number of values  
+```
+
+#####<span style="color:blue">**TASK 2A**</span>  
+What code would create a new tibble called "df" with two variables ("A" and "B") each with 20 different sets of observations?  
+  
+```{r, eval =FALSE}
+df <- tibble(
+  A = seq(1,20),
+  B = rnorm(20)
+)
+```
+
+#####<span style="color:blue">**TASK 2B**</span>  
+What code would return the value in row 10 of column 3? 
+
+```{r, eval=FALSE}
+df[10,3]
+```
 
 
+#####<span style="color:blue">**TASK 2C**</span>  
+Based on this idea, What code would return the 3rd through 5th rows for the 2nd and 3rd columns?  
 
-
-
-
+```{r, eval=FALSE}
+df[3:5,2:3]
+```
 

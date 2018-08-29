@@ -121,7 +121,7 @@ write_csv(df, "C:/temp/my_table.csv")
 df <- read.csv("C:/temp/my_table.csv")
 
 # Lets add a new column called Name and give thise column text values
-df$Name <- paste(letters[1:20])
+df$Name <- letters[1:20]
 
 #View our table
 #click the df object under the Data window or
@@ -139,8 +139,9 @@ str(df)
 summary(df)
 
 # Deeper look into statistics using the pastecs package
-#install.packages("pastecs")
+install.packages("pastecs")
 library(pastecs)
+?stat.desc()
 stat.desc(df)
 
 # TASK 3A #
@@ -157,8 +158,8 @@ mpg <- mpg
 
 ##Explore the new dataset
 View(mpg)
-summary(mpg)
 str(mpg)
+summary(mpg)
 
 #Grammar of Graphics Template
 ggplot(data = <DATA>) + 
