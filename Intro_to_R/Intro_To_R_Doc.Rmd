@@ -110,7 +110,47 @@ df <- tibble(
 ```
 
 
+##### **Adding a column with mutate**
+We will add a new column ("C"") to our table from <span style="color:blue">**TASK 2A**</span> using the mutate function from the dplyr package.    
 
+We also will need to use the pipe (%>%) function which allows us to continue code, similar to an "and do this". 
+**Hint** Using ctrl + shift + m is the shortcut key for pipe (%>%).  
+
+```{r, eval =FALSE}
+df <- df %>%
+  dplyr::mutate(C = A/B)
+```
+
+##### **Exploring a data table**
+Using brackets we can explore the values within certain positions of the table.  
+For example, we want to see all rows in column 2 or the first 5 rows in each coloumn.
+
+```{r, eval=FALSE}
+df[,2]
+df[5,]
+```
+
+#####<span style="color:blue">**TASK 2B**</span>  
+What code would return the value in row 10 of column 3? 
+
+```{r, eval=FALSE}
+df[10,3]
+```
+
+
+#####<span style="color:blue">**TASK 2C**</span>  
+Based on this idea, What code would return the 3rd through 5th rows for the 2nd and 3rd columns.  
+
+```{r, eval=FALSE}
+df[3:5,2:3]
+```
+
+##### **Saving a data table**
+Now that we have created our data set we want to save it as a CSV file.  
+
+```{r, eval=FALSE}
+write_csv(df, "C:/temp/my_table.csv")
+```
 
 
 

@@ -93,7 +93,8 @@ df <- tibble(
 #Introducing dplyr and mutate which is a package/function already contained in tidyverse 
 # pipe (%>%) is a function that continues code like an "and do this"
 
-df <- df1 %>% dplyr::mutate(C = A/B)
+df <- df %>%
+  dplyr::mutate(C = A/B)
 #Hint - ctrl shift m is the hot key for pipe (%>%)
 
 ## Finding values from out data table
@@ -108,8 +109,8 @@ df[5,]
 df[10,3]
 
 # TASK 2C #
-# Based on this idea, how do you think you would subset the first 5 rows for all three columns?
-df[1:5,]
+# Based on this idea, how do you think you would subset the 3rd through 5th rows for the 2nd and 3rd columns?
+df[3:5,2:3]
 
 ## Saving data table to csv
 write_csv(df, "C:/temp/my_table.csv")
