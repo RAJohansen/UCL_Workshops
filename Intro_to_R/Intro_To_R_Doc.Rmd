@@ -348,7 +348,7 @@ Lets put it all together and use the table you created from section 2 to your ow
 **Saving a Plot**
 Congratulations!!! You have successfully created your own data and data visualizion.  
 The final step is to save your plot using ggsave.
-```{r}
+```{r, eval=FALSE}
 ggsave(filename = "My_Plot",plot = my_plot, device = "png", path = "C:/temp")
 
 ```
@@ -365,25 +365,28 @@ seq(1,10)
 How would you create a sequence of numbers from 1 to 10 by 0.5 and save it to an object called Seq?  
 Optional: Create a equal interval sequence from 1:20 that is 5 numbers long  
 
-```{r, eval = FALSE}
-Seq <- seq(1,10, by =0.5) #define step by value  
-Seq2 <- seq(1,20, length.out = 5) #Defined number of values  
+```{r}
+Seq <- seq(1,10, by =0.5) #define step by value
+Seq
+Seq2 <- seq(1,20, length.out = 5) #Defined number of values
+Seq2
 ```
 
 #####<span style="color:blue">**TASK 2A**</span>  
 What code would create a new tibble called "df" with two variables ("A" and "B") each with 20 different sets of observations?  
   
 ```{r, eval =FALSE}
-df <- tibble(
+df <- tibble::tibble(
   A = seq(1,20),
   B = rnorm(20)
 )
+df
 ```
 
 #####<span style="color:blue">**TASK 2B**</span>  
 What code would return the value in row 10 of column 3? 
 
-```{r, eval=FALSE}
+```{r, eval =FALSE}
 df[10,3]
 ```
 
@@ -391,16 +394,16 @@ df[10,3]
 #####<span style="color:blue">**TASK 2C**</span>  
 Based on this idea, What code would return the 3rd through 5th rows for the 2nd and 3rd columns?  
 
-```{r, eval=FALSE}
+```{r, eval =FALSE}
 df[3:5,2:3]
 ```
 
 ##### <span style = "color:blue">**TASK 4A**</span>  
 Use the table you created from section 2 and create your own data visualization
 
-```{r}
-my_plot <- ggplot(df) + 
-  geom_point(aes(x=A, y=B, color = C)) +
+```{r, eval = FALSE}
+ggplot(data = df) + 
+  geom_point(aes(x=df$A, y=df$B, color = df$C)) +
   theme_classic() +
   labs(title = "My First R Plot", x="A", y = "B")
 ```

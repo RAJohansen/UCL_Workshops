@@ -231,7 +231,7 @@ ggplot(data=mpg) +
 # TASK 4 # 
 # Use the table you created from section 2, to create your own data visualization
 
-my_plot <- ggplot(df) + 
+ggplot(df) + 
   geom_point(aes(x=A, y=B, color = C)) +
   theme_classic() +
   labs(title = "My First R Plot", x="A", y = "B")
