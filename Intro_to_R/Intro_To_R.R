@@ -83,7 +83,7 @@ df_exp <- tibble::tibble(
 
 # TASK 2A # 
 #Create a new tibble called "df" with two variables ("A" and "B") each with 20 different sets of observations
-df1 <- tibble(
+df <- tibble(
   A = seq(1,20),
   B = rnorm(20)
 )

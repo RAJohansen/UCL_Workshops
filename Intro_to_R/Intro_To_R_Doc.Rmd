@@ -54,15 +54,14 @@ Function formating: function_name(arg1 = val1, arg2 = val2)
 Now that you found the function, How do you use it?  
 **HINT:** Use the ? to find R documentation on an object  
   
-###### <span style = "color:blue">**TASK 1A**</span>  
+##### <span style = "color:blue">**TASK 1A**</span>  
 Create a sequence of numbers from 1 to 10 using the seq() function  
 
 ```{r, eval = FALSE}
 ?seq()
-
 ```
 
-######<span style="color:blue">**TASK 1B**</span>  
+#####<span style="color:blue">**TASK 1B**</span>  
 Create a sequence of numbers from 1 to 10 by 0.5 and save it to an object called Seq  
 
 ```{r, eval = FALSE}
@@ -71,18 +70,44 @@ Seq2 <- seq(1,10, length.out = 5) #Defined number of values
 ```
 
 
+### **Working with Data Tables**
+
+##### **Installing R package from CRAN Repository**
+To access specific packages, that are not on base R, you must install that package before you can you use it. However, you only have to install a package once (per computer).  
+
+Once the package is installed you have to run or open that package using the library function. This needs to be done everytime you open R Studio
+```{r, eval=FALSE}
+install.packages("tidyverse")
+library(tidyverse)
+```
 
 
+##### **Quibbles with Tibbles**
+Stolen from a tweet from Hadley Wickham  
+**Tibbles** are modified versions of data.frames which make life in R a little easier.  
 
+Here is an example of a tibble with 4 variables with 10 values using diffent methods 
 
+```{r, eval = FALSE}
+vignette("tibble")
 
+df_exp <- tibble::tibble(
+  a = seq(1,10),
+  b = rnorm(10),
+  c = c(11:20),
+  d = c(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0)
+)
+```
 
-
-
-
-
-
-
+#####<span style="color:blue">**TASK 2A**</span>  
+Create a new tibble called "df" with two variables ("A" and "B") each with 20 different sets of observations.  
+  
+```{r, eval =FALSE}
+df <- tibble(
+  A = seq(1,20),
+  B = rnorm(20)
+)
+```
 
 
 
