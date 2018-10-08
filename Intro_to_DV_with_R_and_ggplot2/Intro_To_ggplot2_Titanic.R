@@ -200,12 +200,31 @@ ggplot(titanic, aes(x = Age, fill = Survived)) +
   coord_cartesian(xlim = c(10,60))
   
 #Change colors of bars
-my_plot <- ggplot(titanic, aes(x = Age, fill = Survived)) +
+ggplot(titanic, aes(x = Age, fill = Survived)) +
   geom_histogram(binwidth = 5,color = "white") +
-  labs(x = "Age",y = "Passengers", title = "Passenger Survival Rate by age") +
+  labs(x = "Age",y = "Passengers", title = "Gender Influence on Titanic Passenger Survival Rate") +
+  facet_wrap(~Sex) +
   theme_classic() + 
   coord_cartesian(xlim = c(10,60)) +
-  scale_fill_manual(values = c("darkgray", "darkblue"))
+  scale_fill_manual(labels = c("No","Yes"), values = c("darkgray", "darkblue"))
+
+
+#Change colors of bars
+
+titanic$Pclass <- as.character(titanic$Pclass)
+titanic$Pclass[titanic$Pclass == "1"] <- "First Class" 
+titanic$Pclass[titanic$Pclass == "2"] <- "Second Class" 
+titanic$Pclass[titanic$Pclass == "3"] <- "Third Class" 
+titanic$Pclass <- as.factor(titanic$Pclass)
+
+ggplot(titanic, aes(x = Age, fill = Survived)) +
+  geom_histogram(binwidth = 5,position = position_dodge2(preserve = "single")) +
+  labs(x = "Age",y = "Passengers", title = "Socio-Economic & Gender Influence \non Titanic Passenger Survival Rate") +
+  facet_wrap(Sex ~Pclass) +
+  theme_bw() + 
+  coord_cartesian(xlim = c(10,60)) +
+  scale_fill_manual(labels = c("No","Yes"), values = c("darkgray", "darkblue"))
+
 
 #Saving Plots
 #Saves last plot unless specified
