@@ -85,7 +85,7 @@ plot(my_seq)
 #Create a histogram of 100 random normal values
 hist(rnorm(100))
 
-### Working with Data ----------------------------------------------------------------
+### Importing and Exporting data ----------------------------------------------------------------
 # Vectors: vectors (a row of numbers, also called arrays –1-dimensional)
 # Matrices: Matrices are nothing more than 2-dimensional vectors.
 # Data Frames: A data frame is a matrix with names above the columns 
@@ -95,7 +95,66 @@ hist(rnorm(100))
 ## Most of the time you will be working with Data frames
 #Additionally, these data sets will be from else where so you need to import them
 
-## Importing data 
-read.csv("C:/myfolder/mydata/data.csv")
-readxl::read_xlsx("C:/myfolder/mydata/data.xlsx")
-mtcars  <- mtcars
+# Importing data 
+df <- read.csv("C:/myfolder/mydata/data.csv")
+df <- readxl::read_xlsx("C:/myfolder/mydata/data.xlsx")
+# Or using the import dataset button in the top right
+
+# Saving (writing) data
+write_csv(df, "C:/myfolder/data.csv")
+
+### Exploring data-------------------------------------------------------------
+#Lets explore data using a data set thats contained in R
+df  <- mtcars
+
+#View our table
+#click the df object under the Data window or
+View(df)
+
+# Lists the variables 
+names(df)
+
+#Lets look at the structure of the data
+str(df)
+#This will become very useful when we visualize the data
+#Make sure your variables are in the appropiate format!!
+
+## Statistical summary of the data
+summary(df)
+
+## Finding values from out data table
+# Lets look at column 2 
+df[,2]
+
+#Lets look at row 5
+df[5,]
+
+#What value is in row 5 column 3?
+df[5,3]
+
+# Based on this idea, we can make more complicated searches
+#Lets take the first ten cars and look at their MPG (1), HP(4), and qsec(7)
+df[1:10,c(1,4,7)]
+
+# What if we want to know the max mpg
+max(df$mpg)
+#Lets find the row number of the vehicle with the highest mpg
+which(df== max(df$mpg))
+#Then show me all columns for row 20
+df[20,]
+#**More efficiently
+df[which.max(df$mpg),]
+
+#TASK 2
+#find the fastest car with 6 cylinders
+df_6 <- df[which(df$cyl== 6),]
+df_6[which.min(df_6$qsec),]
+
+#Just the value 
+min(df[df["cyl"]==6 , "qsec",])
+
+## OPTIONAL: Deeper look into statistics using the pastecs package
+install.packages("pastecs")
+library(pastecs)
+?stat.desc()
+stat.desc(df)
