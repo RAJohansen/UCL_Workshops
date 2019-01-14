@@ -56,16 +56,17 @@ list <- 1:100
 # Easy because the list is in order but now we want a list of 1:100 by 2?
 # This is were we want to introduce functions
 #Simple function format: function_name(argument #1 = value #1, argument #2 = value #2)
+
+#To accomplish this goal we will use the sequence or seq() function
+#The first thing I do when using a new functions is to look at the documentation.
 #HINT: Use the ? to find R documentation on an object
 ?seq()
 
+# Task #1:
+#Using this function how would you create a sequence from 1 to 100? 
 seq(1,10)
 
 # TASK 1B #
-#Create a sequence of numbers from 1 to 10 by 0.5 and save it to an object called Seq1
-Seq <- seq(1,10, by =0.5) #define step by value
-Seq2 <- seq(1,10, length.out = 5) #Defined number of values
+#Create a sequence of numbers from 1 to 100 by 2 and save it to an object called Seq1
+Seq <- seq(1, 100, by =2) #define step by value
 
-
-##Functions
-#function format: function_name(arg1 = val1, arg2 = val2)
