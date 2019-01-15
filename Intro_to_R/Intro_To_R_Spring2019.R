@@ -150,11 +150,15 @@ df[which.max(df$mpg),]
 df_6 <- df[which(df$cyl== 6),]
 df_6[which.min(df_6$qsec),]
 
-#Just the value 
-min(df[df["cyl"]==6 , "qsec",])
+## OPTIONAL: Visualization with ggplot2
+#install.packages("ggplot2")
+library(ggplot2)
 
-## OPTIONAL: Deeper look into statistics using the pastecs package
-install.packages("pastecs")
+## OPTIONAL: Deeper look into statistics
+#Lots of files to explore in Data_Vis project under R_Stats
+
+# using the pastecs package
+#install.packages("pastecs")
 library(pastecs)
 ?stat.desc()
 stat.desc(df)
