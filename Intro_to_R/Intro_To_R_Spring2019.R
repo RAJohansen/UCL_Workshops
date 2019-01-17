@@ -363,3 +363,10 @@ pairs(iris[1:4],
       diag.panel = panel.hist,
       pch = 16,
       col = brewer.pal(3, "Pastel1")[unclass(iris$Species)])
+
+#Saving a plot
+jpeg('C:/temp/My_Awesome_Plot.jpg')
+
+#Plot goes here!
+
+dev.off()
