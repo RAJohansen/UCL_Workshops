@@ -10,7 +10,7 @@
 #Twitter: @DataVizJohansen
 
 
-### R Basics--------------------------------------------------------------
+### Section 1: R Basics--------------------------------------------------------------
 ## R as a Calculator
 #simple to complex equations
 1+2
@@ -76,7 +76,7 @@ seq(1,10)
 #Create a sequence of numbers from 1 to 100 by 2 called my_seq
 my_seq <- seq(1, 100, by =2) #define step by value
 
-### Importing and Exporting data ----------------------------------------------------------------
+### Section 2: Importing and Exporting data ----------------------------------------------------------------
 # Vectors: vectors (a row of numbers, also called 1-dimensional arrays)
 # Matrices: Matrices are nothing more than 2-dimensional vectors.
 # Data Frames: A data frame is a matrix with names above the columns 
@@ -86,15 +86,15 @@ my_seq <- seq(1, 100, by =2) #define step by value
 ## Most of the time you will be working with Data frames
 #Additionally, these data sets will be from else where so you need to import them
 
+# Saving (writing) data
+write_csv(my_seq, "C:/temp/data.csv")
+
 # Importing data 
-df <- read.csv("C:/myfolder/mydata/data.csv")
+df <- read.csv("C:/temp/data.csv")
 df <- readxl::read_xlsx("C:/myfolder/mydata/data.xlsx")
 # Or using the import dataset button in the top right
 
-# Saving (writing) data
-write_csv(df, "C:/myfolder/data.csv")
-
-### Exploring data-------------------------------------------------------------
+### Section 3: Exploring data-------------------------------------------------------------
 #Lets explore data using a data set thats contained in R
 cars  <- mtcars
 
@@ -142,7 +142,10 @@ df[which.max(cars$mpg),]
 cars_6 <- cars[which(cars$cyl== 6),]
 cars_6[which.min(cars_6$qsec),]
 
-###Plotting using base plot -------------------------------------------------
+### Section 4: Plotting using base plot -------------------------------------------------
+#Useful resources for using base plot in R
+#https://www.harding.edu/fmccown/r/
+#https://www.statmethods.net/graphs/index.html
 
 ### Default Plot
 plot(mtcars$mpg)
@@ -226,11 +229,14 @@ plot(lines, type="o", col="blue")
 #Add a title
 title(main="My Line Graph")
 
-## OPTIONAL: Visualization with ggplot2
+### Section 5: Basic Stats with R ---------------------------------------------------------
+
+
+### OPTIONAL: Visualization with ggplot2----------------------------------------
 #install.packages("ggplot2")
 library(ggplot2)
 
-## OPTIONAL: Deeper look into statistics
+### OPTIONAL: Deeper look into statistics --------------------------------------
 #Lots of files to explore in Data_Vis project under R_Stats
 
 # using the pastecs package
