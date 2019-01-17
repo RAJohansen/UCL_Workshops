@@ -51,13 +51,13 @@ me "Tab"
 #Try a fuzzy search
 apropos("mea") 
 
-## Creating a list of numbers
-list <- c(1,2,3,4,5,6,7,8,9,10)
+## Creating a series of numbers
+series <- c(1,2,3,4,5,6,7,8,9,10)
 
-#However what if you wanted to create a list to 100?
-list <- 1:100
+#However what if you wanted to create a series to 100?
+series <- 1:100
 
-# Easy because the list is in order but now we want a list of 1:100 by 2?
+# Easy because the series is in order but now we want a series of 1:100 by 2?
 # This is were we want to introduce functions
 #Simple function format: function_name(argument #1 = value #1, argument #2 = value #2)
 
@@ -76,21 +76,12 @@ seq(1,10)
 #Create a sequence of numbers from 1 to 100 by 2 called my_seq
 my_seq <- seq(1, 100, by =2) #define step by value
 
-##Plotting using base plot
-#We will come back to plotting
-#But I want to show how quick and easy it is to plot in R
-
-#Plot our sequence from Task 1B
-plot(my_seq)
-#Create a histogram of 100 random normal values
-hist(rnorm(100))
-
 ### Importing and Exporting data ----------------------------------------------------------------
-# Vectors: vectors (a row of numbers, also called arrays –1-dimensional)
+# Vectors: vectors (a row of numbers, also called 1-dimensional arrays)
 # Matrices: Matrices are nothing more than 2-dimensional vectors.
 # Data Frames: A data frame is a matrix with names above the columns 
-# Lists: The main advantage of lists is that the “columns” or collection of vectors
-  #don’t have to be of the same length, unlike matrices and data frames.
+# Lists: The main advantage of lists is that the columns or collection of vectors
+  #don't have to be of the same length, unlike matrices and data frames.
 
 ## Most of the time you will be working with Data frames
 #Additionally, these data sets will be from else where so you need to import them
@@ -105,50 +96,81 @@ write_csv(df, "C:/myfolder/data.csv")
 
 ### Exploring data-------------------------------------------------------------
 #Lets explore data using a data set thats contained in R
-df  <- mtcars
+cars  <- mtcars
 
 #View our table
 #click the df object under the Data window or
-View(df)
+View(cars)
 
 # Lists the variables 
-names(df)
+names(cars)
 
 #Lets look at the structure of the data
-str(df)
+str(cars)
 #This will become very useful when we visualize the data
 #Make sure your variables are in the appropiate format!!
 
 ## Statistical summary of the data
-summary(df)
+summary(cars)
 
 ## Finding values from out data table
 # Lets look at column 2 
-df[,2]
+cars[,2]
 
 #Lets look at row 5
-df[5,]
+cars[5,]
 
 #What value is in row 5 column 3?
-df[5,3]
+cars[5,3]
 
 # Based on this idea, we can make more complicated searches
 #Lets take the first ten cars and look at their MPG (1), HP(4), and qsec(7)
-df[1:10,c(1,4,7)]
+cars[1:10,c(1,4,7)]
 
 # What if we want to know the max mpg
-max(df$mpg)
+max(cars$mpg)
 #Lets find the row number of the vehicle with the highest mpg
-which(df== max(df$mpg))
+which(cars== max(cars$mpg))
 #Then show me all columns for row 20
 df[20,]
+
 #**More efficiently
-df[which.max(df$mpg),]
+df[which.max(cars$mpg),]
 
 #TASK 2
 #find the fastest car with 6 cylinders
-df_6 <- df[which(df$cyl== 6),]
-df_6[which.min(df_6$qsec),]
+cars_6 <- cars[which(cars$cyl== 6),]
+cars_6[which.min(cars_6$qsec),]
+
+###Plotting using base plot -------------------------------------------------
+
+### Default Plot
+plot(mtcars$mpg)
+
+### Dotchart
+dotchart(mtcars$mpg)
+# Adding details and labels to a Simple Dotplot
+dotchart(mtcars$mpg,labels=row.names(mtcars),cex=.7,
+         main="Gas Milage for Car Models", 
+         xlab="Miles Per Gallon")
+
+### Histogram
+hist(cars$mpg)
+# Colored Histogram with Different Number of Bins
+hist(mtcars$mpg, breaks=10, col="red")
+
+### Kernel Density Plot
+d <- density(mtcars$mpg) # returns the density data 
+plot(d) # plots the results
+#Using polygon to fill in the density plot
+polygon(d, col = "red")
+
+#Barplot
+barplot(cars$mpg)
+
+#2-D Scatterplot
+plot(cars$mpg,cars$qsec)
+
 
 ## OPTIONAL: Visualization with ggplot2
 #install.packages("ggplot2")
