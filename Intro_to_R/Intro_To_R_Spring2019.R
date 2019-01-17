@@ -96,51 +96,51 @@ df <- readxl::read_xlsx("C:/myfolder/mydata/data.xlsx")
 
 ### Section 3: Exploring data-------------------------------------------------------------
 #Lets explore data using a data set thats contained in R
-cars  <- mtcars
+mtcars  <- mtcars
 
 #View our table
 #click the df object under the Data window or
-View(cars)
+View(mtcars)
 
 # Lists the variables 
-names(cars)
+names(mtcars)
 
 #Lets look at the structure of the data
-str(cars)
+str(mtcars)
 #This will become very useful when we visualize the data
 #Make sure your variables are in the appropiate format!!
 
 ## Statistical summary of the data
-summary(cars)
+summary(mtcars)
 
 ## Finding values from out data table
 # Lets look at column 2 
-cars[,2]
+mtcars[,2]
 
 #Lets look at row 5
-cars[5,]
+mtcars[5,]
 
 #What value is in row 5 column 3?
-cars[5,3]
+mtcars[5,3]
 
 # Based on this idea, we can make more complicated searches
-#Lets take the first ten cars and look at their MPG (1), HP(4), and qsec(7)
-cars[1:10,c(1,4,7)]
+#Lets take the first ten mtcars and look at their MPG (1), HP(4), and qsec(7)
+mtcars[1:10,c(1,4,7)]
 
 # What if we want to know the max mpg
-max(cars$mpg)
+max(mtcars$mpg)
 #Lets find the row number of the vehicle with the highest mpg
-which(cars== max(cars$mpg))
+which(mtcars== max(mtcars$mpg))
 #Then show me all columns for row 20
 df[20,]
 
 #**More efficiently
-df[which.max(cars$mpg),]
+df[which.max(mtcars$mpg),]
 
 #TASK 2
 #find the fastest car with 6 cylinders
-cars_6 <- cars[which(cars$cyl== 6),]
-cars_6[which.min(cars_6$qsec),]
+mtcars_6 <- mtcars[which(mtcars$cyl== 6),]
+mtcars_6[which.min(mtcars_6$qsec),]
 
 ### Section 4: Plotting using base plot -------------------------------------------------
 #Useful resources for using base plot in R
@@ -159,21 +159,21 @@ dotchart(mtcars$mpg,
          xlab="Miles Per Gallon")
 
 ### Histogram
-hist(cars$mpg)
+hist(mtcars$mpg)
 # Colored Histogram with Different Number of Bins
-hist(cars$mpg, breaks=10, col="red")
+hist(mtcars$mpg, breaks=10, col="red")
 
 ### Kernel Density Plot
-d <- density(cars$mpg) # returns the density data 
+d <- density(mtcars$mpg) # returns the density data 
 plot(d) # plots the results
 #Using polygon to fill in the density plot
 polygon(d, col = "red")
 
 ### Barplot
-barplot(cars$cyl) #???
+barplot(mtcars$cyl) #???
 
 #Need to create a variable called count to count the number of each group
-counts <- table(cars$cyl)
+counts <- table(mtcars$cyl)
 #Barplot of counts
 barplot(counts)
 
@@ -183,7 +183,7 @@ barplot(counts,
         xlab="Number of Gears")
 
 # Stacked Bar Plot with Colors and legend
-counts <- table(cars$cyl, mtcars$gear)
+counts <- table(mtcars$cyl, mtcars$gear)
 barplot(counts,
         main="Car Distribution by Cylinders and Gears",
         xlab="Number of Gears",
@@ -192,33 +192,33 @@ barplot(counts,
 
 ### Box Plots
 # Boxplot of MPG by Car Cylinders 
-boxplot(cars$mpg~cars$cyl)
+boxplot(mtcars$mpg~mtcars$cyl)
 # Boxplot with labels
 boxplot(mpg~cyl,
-        data=cars,
+        data=mtcars,
         main="Car Milage Data", 
         xlab="Number of Cylinders",
         ylab="Miles Per Gallon")
 
 ### Pie Charts
-slices <- table(cars$cyl)
+slices <- table(mtcars$cyl)
 lbls <- c("Four", "Six", "Eight")
 pie(slices,
     labels = lbls,
-    main="Pie Chart of Cars Cylindars")
+    main="Pie Chart of mtcars Cylindars")
 
 ### Scatterplot
 # Simple Scatterplot
-plot(cars$wt,cars$mpg)
+plot(mtcars$wt,mtcars$mpg)
 
 #Add labels
-plot(cars$wt, cars$mpg,
+plot(mtcars$wt, mtcars$mpg,
      main="Scatterplot Example", 
      xlab="Car Weight ",
      ylab="Miles Per Gallon ",
      pch=19)
 #Add linear regression line 
-abline(lm(cars$mpg~cars$wt), col="red") # regression line (y~x) 
+abline(lm(mtcars$mpg~mtcars$wt), col="red") # regression line (y~x) 
 
 ###Line Graphs
 lines <- c(1:2,4,7,5,8,10,7)
@@ -229,18 +229,95 @@ plot(lines, type="o", col="blue")
 #Add a title
 title(main="My Line Graph")
 
-### Section 5: Basic Stats with R ---------------------------------------------------------
+### Section 5: Basic Stats with R ----------------------------------------------
+# Statistics are used to summerize data!
+#We use stats because it is difficult to memorize and decipher raw numbers
+
+#Example 1:
+#Car traffic per day for a week
+total <- sum(5,16,15,16,13,20,25)
+days <- 7
+total/days
+# Average daily traffic is 15.7 mtcars
+
+#Two basic types of Statistics
+#Descriptive Stats: uses data to describe the characteristics of a group
+#Inferential Stats: uses the data to make predictions or draw conclusions
+
+### Descriptive Statistics -----------------------------------------------------
+#One variable
+summary(mtcars$mpg)
+#Entire Data set
+summary(mtcars)
+
+#Tukey's five-number summary: Min, Lower-hinge, Median, Upper-Hinge, Max (Not Labeled)
+#These five numbers that define a boxplot
+fivenum(cars$mpg)
+
+###Althernative Descriptive Stats I
+#install.packages("psych")
+library("psych")
+describe(mtcars)  #vars, n, mean, sd, median, trimmed, mad, min, max, range, skew, kurtosis, se
+
+###Alternative Descriptive Stats II
+#install.packages("pastecs")
+library(pastecs)
+?stat.desc()
+stat.desc(mtcars)
+
+### Analyzing by Subgroup ------------------------------------------------------
+#Load the iris dataset
+data(iris)
+View(iris)
+mean(iris$Petal.Width)
+
+#Split the data file and repeat analysis using "aggregate"
+#Allowing for the comparison of means by group
+aggregate(iris$Petal.Width ~ iris$Species, FUN = mean) # ~ means a function of...
+means <- aggregate(iris$Petal.Width ~ iris$Species, FUN = mean)
+plot(means)
+# there is significant difference between species 
+
+#Using cbind we can conduct multiple calculations at once
+#Note: the results do not keep the column headers so you need to remember the order
+#you specified them or rename the variables
+aggregate(cbind(iris$Petal.Width, iris$Petal.Length)~ iris$Species, FUN = mean)
+
+### Calculating Correlations ---------------------------------------------------
+mtcars <- mtcars
+#Explore how all variables relate using a correlation matrix
+cor(mtcars)
+#round the results to 2 digits for easier readability
+round(cor(swiss), 2)
+
+# Test one pair of variables at a time
+# derives r, hypothesis test, and CI
+# Pearson's product-moment correlation
+cor.test(mtcars$mpg, mtcars$wt)
+
+### Computing a bivariate regression--------------------------------------------
+#Quick Graphical check
+hist(mtcars$mpg)
+hist(mtcars$wt)
+plot(mtcars$wt, mtcars$mpg)
+abline(lm(mtcars$mpg~mtcars$wt))
+
+#Linear regression model
+#Correlation: is the strength of the association
+#Regression: is a function that can be used to predict values of another variable
+reg1 <- lm(mpg~wt, data = mtcars)
+reg1
+#Coefficients: (y= mx + b)
+#  (Intercept)        Girth  
+#37.285        -5.344 
+
+summary(reg1)
+# The slope being statsitcally significant
+# means that wt is a good predictor of mpg
+# weight can accounts for 0.75 or 75% of the variation in mpg
 
 
 ### OPTIONAL: Visualization with ggplot2----------------------------------------
 #install.packages("ggplot2")
 library(ggplot2)
 
-### OPTIONAL: Deeper look into statistics --------------------------------------
-#Lots of files to explore in Data_Vis project under R_Stats
-
-# using the pastecs package
-#install.packages("pastecs")
-library(pastecs)
-?stat.desc()
-stat.desc(df)
