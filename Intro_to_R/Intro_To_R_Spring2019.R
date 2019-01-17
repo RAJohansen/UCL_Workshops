@@ -316,8 +316,50 @@ summary(reg1)
 # means that wt is a good predictor of mpg
 # weight can accounts for 0.75 or 75% of the variation in mpg
 
+### Multiple Regression formula
+#Save as an object to be able to extract additional information from model
+# Six Predictors for one result
+reg1 <- lm(mpg ~cyl + disp + hp + wt + gear + carb, 
+           data = mtcars)
 
-### OPTIONAL: Visualization with ggplot2----------------------------------------
-#install.packages("ggplot2")
-library(ggplot2)
+#Simple Coefficents 
+reg1
 
+# More detailed descriptions
+#summary(reg1)
+#anova(reg1)
+#coef(reg1)
+#confint(reg1) #Confindence intervals for coefficients
+#resid(reg1)
+#hist(residuals(reg1)) #histogram of the residuals
+
+#### Get Inspired!!!   -------------------------------
+# Lets Make scatterplot matrix by Creating Scatterplots matrices
+data("iris")
+
+#To rcreate a basic scatterplot matrix just requires using the pairs function
+pairs(iris[1:4]) #only quantitative variables
+
+#Modified scatterplot matricies
+require("RColorBrewer")
+display.brewer.pal(3,"Pastel1") #display colorpalette
+
+#Put Histograms on the diagonal (from "pairs" Help)
+#Creating new function
+panel.hist  <- function(x,...)
+{
+  usr <- par("usr"); on.exit(par(usr))
+  par(usr = c(usr[1:2], 0,1.5) )
+  h <- hist(x, plot = FALSE)
+  breaks <- h$breaks; nB <- length(breaks)
+  y <- h$counts; y <- y/max(y)
+  rect(breaks[-nB], 0, breaks[-1], y, ...)
+}
+
+#Re-run pairs using the panel.hist function
+pairs(iris[1:4],
+      panel = panel.smooth,
+      main = "Scatterplot Maxtris for Iris Data Using pairs Function",
+      diag.panel = panel.hist,
+      pch = 16,
+      col = brewer.pal(3, "Pastel1")[unclass(iris$Species)])
