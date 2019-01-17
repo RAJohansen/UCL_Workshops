@@ -150,27 +150,81 @@ plot(mtcars$mpg)
 ### Dotchart
 dotchart(mtcars$mpg)
 # Adding details and labels to a Simple Dotplot
-dotchart(mtcars$mpg,labels=row.names(mtcars),cex=.7,
+dotchart(mtcars$mpg,
+         labels=row.names(mtcars),
          main="Gas Milage for Car Models", 
          xlab="Miles Per Gallon")
 
 ### Histogram
 hist(cars$mpg)
 # Colored Histogram with Different Number of Bins
-hist(mtcars$mpg, breaks=10, col="red")
+hist(cars$mpg, breaks=10, col="red")
 
 ### Kernel Density Plot
-d <- density(mtcars$mpg) # returns the density data 
+d <- density(cars$mpg) # returns the density data 
 plot(d) # plots the results
 #Using polygon to fill in the density plot
 polygon(d, col = "red")
 
-#Barplot
-barplot(cars$mpg)
+### Barplot
+barplot(cars$cyl) #???
 
-#2-D Scatterplot
-plot(cars$mpg,cars$qsec)
+#Need to create a variable called count to count the number of each group
+counts <- table(cars$cyl)
+#Barplot of counts
+barplot(counts)
 
+#Add title and axis lable
+barplot(counts, 
+        main="Car Distribution", 
+        xlab="Number of Gears")
+
+# Stacked Bar Plot with Colors and legend
+counts <- table(cars$cyl, mtcars$gear)
+barplot(counts,
+        main="Car Distribution by Cylinders and Gears",
+        xlab="Number of Gears",
+        col = c("darkred","darkblue","orange"),
+        legend = rownames(counts))
+
+### Box Plots
+# Boxplot of MPG by Car Cylinders 
+boxplot(cars$mpg~cars$cyl)
+# Boxplot with labels
+boxplot(mpg~cyl,
+        data=cars,
+        main="Car Milage Data", 
+        xlab="Number of Cylinders",
+        ylab="Miles Per Gallon")
+
+### Pie Charts
+slices <- table(cars$cyl)
+lbls <- c("Four", "Six", "Eight")
+pie(slices,
+    labels = lbls,
+    main="Pie Chart of Cars Cylindars")
+
+### Scatterplot
+# Simple Scatterplot
+plot(cars$wt,cars$mpg)
+
+#Add labels
+plot(cars$wt, cars$mpg,
+     main="Scatterplot Example", 
+     xlab="Car Weight ",
+     ylab="Miles Per Gallon ",
+     pch=19)
+#Add linear regression line 
+abline(lm(cars$mpg~cars$wt), col="red") # regression line (y~x) 
+
+###Line Graphs
+lines <- c(1:2,4,7,5,8,10,7)
+plot(lines)
+
+# Graph line using blue points overlayed by a line 
+plot(lines, type="o", col="blue")
+#Add a title
+title(main="My Line Graph")
 
 ## OPTIONAL: Visualization with ggplot2
 #install.packages("ggplot2")
