@@ -117,3 +117,45 @@ jpeg("C:/R_Packages/UCL_Workshops/Intro_to_DV/Plots/Movies_Facet.jpg",
      res = 300) 
 dev.off()
 
+ggplot(movies_df) +
+  geom_point(aes(Runtime, Rating)) +
+  geom_smooth(aes(Runtime, Rating)) +
+  theme_bw()
+jpeg("C:/R_Packages/UCL_Workshops/Intro_to_DV/Plots/Movies_Combined_Chart.jpg",
+     width = 7, height = 7, units = "in",
+     res = 300) 
+dev.off()
+
+ggplot(diamonds, aes(x=carat,y=price))+
+  stat_binhex(colour="white",na.rm=TRUE)+
+  scale_fill_gradientn(colours=c("lightgrey","red"),name = "Frequency",na.value="white") +
+  theme_classic()
+jpeg("C:/R_Packages/UCL_Workshops/Intro_to_DV/Plots/Diamonds_Hex.jpg",
+     width = 7, height = 7, units = "in",
+     res = 300) 
+dev.off()
+
+library(maps)
+
+all_states <- map_data("state")
+all_states
+head(all_states)
+
+voters$region <- voters$state
+voters$region <- tolower(voters$region)
+Total <- merge(all_states, voters, by="region")
+head(Total)
+
+ggplot() +
+  geom_polygon(data=Total, aes(x=long, y=lat, group = group, fill=Total$eligible_voters),colour="white") +
+  scale_fill_continuous(low = "thistle2", high = "darkred", guide="colorbar") +
+  theme_bw()  +
+  labs(fill = "Number of Voters" ,title = "Voter Turnout by State for 2016 Presidential Election", x="", y="") +
+  scale_y_continuous(breaks=c()) +
+  scale_x_continuous(breaks=c()) +
+  theme(panel.border =  element_blank())
+
+jpeg("C:/R_Packages/UCL_Workshops/Intro_to_DV/Plots/Voters_Map.jpg",
+     width = 7, height = 5, units = "in",
+     res = 300) 
+dev.off()
