@@ -5,9 +5,9 @@ BiocManager::install("ChemmineR")
 
 #Load Packages
 library("ChemmineR") # Loads the package
-library(help="ChemmineR") # Lists all functions and classes 
 
 #Open Vignette to explore documentation
+library(help="ChemmineR") # Lists all functions and classes 
 vignette("ChemmineR") # Opens this PDF manual from R 
 
 #Load Dataset
@@ -39,7 +39,7 @@ atomblock(sdfset[1:4])
 atomblock(sdfset[[1]])[1:4,] 
 
 #bondblock
-?bondblock()
+?bondblock
 bondblock(sdfset[1:4])
 bondblock(sdfset[[1]])[1:4,] 
 
