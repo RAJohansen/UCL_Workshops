@@ -1,5 +1,15 @@
 library(tidyverse)
 
+mpg <- mpg
+mpg$cyl <- as.factor(mpg$cyl)
+mpg$manufacturer <- as.factor(mpg$manufacturer)
+ggplot(mpg) + geom_point(aes(displ,hwy, col = manufacturer), size= 3)+ theme_bw()
+
+jpeg("C:/R_Packages/UCL_Workshops/Intro_to_DV/Plots/mpg_manufacturer.jpg",
+     width = 5, height = 5, units = "in",
+     res = 300) 
+dev.off()
+
 diamonds <- diamonds
 diamonds 
 
@@ -159,3 +169,5 @@ jpeg("C:/R_Packages/UCL_Workshops/Intro_to_DV/Plots/Voters_Map.jpg",
      width = 7, height = 5, units = "in",
      res = 300) 
 dev.off()
+
+
