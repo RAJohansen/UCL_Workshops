@@ -118,7 +118,48 @@ plot(USA_Cont)
 plot(spointsdf,add=T,col=c('red'),pch=16) # add = T; adds this to existing plot
 text(-84.518986, 39.132979,labels="University of \n Cincinnati",pos=4, offset=0.3) # add label to an individual plot
 
-### Bathymetric Mapping from NOAA ---------------------------------------------------------------------
+### Mapping using sf package (Future of spatial R) -----------------------------
+#https://geocompr.robinlovelace.net/ 
+library(raster)
+library(sf)
+library(spData)        # load geographic data
+library(spDataLarge)   # load larger geographic data
+
+#Lets create an object for Countries
+world <- world
+
+#Explore at the variables
+names(world)
+#Plot the variables for world
+plot(world)
+
+#Plot just population
+plot(world["pop"]) 
+#or
+plot(world[8]) #8th Variable
+
+#Lets add out gap minder data to our world sf file
+#First both must have a common column name for joining
+df$name_long <- df$country
+
+#Use merge to combine the data table (df) to the simple feature (world)
+world_GM = merge(world, df, by='name_long')
+
+#Lets look at world_GM
+world_GM
+ggplot() + geom_sf(USA_Cont)
+
+### Interactive Mapping with Leaflet -------------------------------------------
+
+
+### Tmap -----------------------------------------------------------------------
+
+### Raster Data ----------------------------------------------------------------
+raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
+srtm_raster = raster(raster_filepath)
+plot(srtm_raster)
+
+### Bathymetric Mapping from NOAA ----------------------------------------------
 library(marmap)
 library(lattice)
 blues <- colorRampPalette(c("darkblue", "cyan"))
@@ -144,7 +185,3 @@ wireframe(unclass(Gulf), shade = TRUE,
           aspect = c(1, 0.1),
           scales = list(draw=F,arrows=F),
           xlab="",ylab="",zlab="")
-### Interactive Mapping with Leaflet -------------------------------------------
-### Tmap -----------------------------------------------------------------------
-
-#Others?
