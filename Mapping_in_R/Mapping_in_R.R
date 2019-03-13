@@ -77,6 +77,7 @@ library(maps)
 library(maptools)
 library(ggmap)
 library(rgdal)
+library(marmap)
 
 #load a simple basemap
 data("wrld_simpl")
@@ -117,10 +118,33 @@ plot(USA_Cont)
 plot(spointsdf,add=T,col=c('red'),pch=16) # add = T; adds this to existing plot
 text(-84.518986, 39.132979,labels="University of \n Cincinnati",pos=4, offset=0.3) # add label to an individual plot
 
-### ggplot ---------------------------------------------------------------------
-geom_sf()
-### Interactive Mapping with Leaflet -------------------------------------------
+### Bathymetric Mapping from NOAA ---------------------------------------------------------------------
+library(marmap)
+library(lattice)
+blues <- colorRampPalette(c("darkblue", "cyan"))
+greys <- colorRampPalette(c(grey(0.4),grey(0.99)))
+Gulf<- getNOAA.bathy(-100,-79,33,23,resolution=10)
 
+plot.bathy(Gulf,
+           image = TRUE,
+           land = TRUE,
+           n=0,
+           bpal = list(c(0, max(Gulf), greys(100)),
+                       c(min(Gulf), 0, blues(100))))
+
+wireframe(unclass(Gulf), drape = TRUE,
+          aspect = c(1, 0.1),
+          scales = list(draw=F,arrows=F),
+          xlab="",ylab="",zlab="",
+          at=c(min(Gulf)/100*(99:0),max(Gulf)/100*(1:99)),
+          col.regions = c(blues(100),greys(100)),
+          col='transparent')
+
+wireframe(unclass(Gulf), shade = TRUE,
+          aspect = c(1, 0.1),
+          scales = list(draw=F,arrows=F),
+          xlab="",ylab="",zlab="")
+### Interactive Mapping with Leaflet -------------------------------------------
 ### Tmap -----------------------------------------------------------------------
 
 #Others?
