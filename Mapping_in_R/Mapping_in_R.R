@@ -52,15 +52,8 @@ plot(lifeExp ~ gdpPercap, gapminder, subset = year == 2007, log = "x")
 #***CAUTION: How you choose to visualize information can lead readers to different answers
 
 ## Example of grouping data
-GM_group <- gapminder %>%
-  filter(year == 2007) %>%
-  group_by(continent) %>%
-  summarise(medlifeExp = median(lifeExp), medGDP = median(gdpPercap))
-
-plot(x = GM_group$medlifeExp,
-     y = GM_group$medGDP,
-     col = GM_group$continent,
-     legend(x = 55, y = 25000, legend = levels(GM_group$continent), col = 1:3), pch = 16)
+boxplot(df$lifeExp ~ df$continent)
+boxplot(df$gdpPercap ~ df$continent)
 
 ### Mapping with baseplot ------------------------------------------------------
 
