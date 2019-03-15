@@ -174,7 +174,13 @@ tm_shape(world) +
   tm_fill(col = "pop", style = "cont") + 
   tm_borders() 
 
-# Mapping catagorical values
+# Changing palettes
+tmaptools::palette_explorer()
+tm_shape(world) +
+  tm_fill(col = "pop", style = "cont", palette = "magma") + 
+  tm_borders() 
+
+### Mapping catagorical values
 tm_shape(world) +
   tm_fill(col = "continent", style = "cat") + 
   tm_borders() 
