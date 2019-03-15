@@ -183,9 +183,15 @@ tm_shape(world) +
 ### Mapping catagorical values
 tm_shape(world) +
   tm_fill(col = "continent", style = "cat") + 
-  tm_borders() 
+  tm_borders()
 
-
+### Making a "pretty" map
+tm_shape(world) +
+  tm_fill(col = "continent", style = "cat") + 
+  tm_borders() +
+  tm_layout(title = "World Countries by Continent", legend.outside = TRUE, frame = FALSE) +
+  tm_compass(type = "arrow", position = c("right", "top"), size = 1) +
+  tm_scale_bar(breaks = c(0, 5000, 10000),size = 0.75)
 
 
 ### Interactive Mapping with Leaflet -------------------------------------------
