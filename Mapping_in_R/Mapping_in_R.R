@@ -13,6 +13,7 @@
 #install.packages("gapminder")
 library(dplyr)
 library(gapminder)
+library(tidyverse)
 
 ## Create R Object (data frame) from gapminder
 df <- gapminder
@@ -77,7 +78,6 @@ library(maps)
 library(maptools)
 library(ggmap)
 library(rgdal)
-library(marmap)
 
 #load a simple basemap
 data("wrld_simpl")
@@ -92,8 +92,8 @@ plot(wrld_simpl,
 
 #Add colors to map
 plot(wrld_simpl,
-     xlim=xlim,
-     ylim=ylim,
+     xlim=c(-130,-60),
+     ylim=c(25,50),
      col='olivedrab3', #Countries
      bg='lightblue') #***Background in this case thats the ocean
 
@@ -118,41 +118,41 @@ plot(USA_Cont)
 plot(spointsdf,add=T,col=c('red'),pch=16) # add = T; adds this to existing plot
 text(-84.518986, 39.132979,labels="University of \n Cincinnati",pos=4, offset=0.3) # add label to an individual plot
 
-### Mapping using sf package (Future of spatial R) -----------------------------
+### Mapping using Tmap -----------------------------
 #https://geocompr.robinlovelace.net/ 
 library(raster)
 library(sf)
 library(spData)        # load geographic data
 library(spDataLarge)   # load larger geographic data
-
+library(tmap)
 #Lets create an object for Countries
 world <- world
 
 #Explore at the variables
 names(world)
+
 #Plot the variables for world
 plot(world)
 
 #Plot just population
 plot(world["pop"]) 
-#or
-plot(world[8]) #8th Variable
 
-#Lets add out gap minder data to our world sf file
-#First both must have a common column name for joining
-df$name_long <- df$country
+# Plot world using tm functions
+tm_shape(world) +
+  tm_fill()
 
-#Use merge to combine the data table (df) to the simple feature (world)
-world_GM = merge(world, df, by='name_long')
+# Add boarders to countries
+tm_shape(world) +
+  tm_fill() + 
+  tm_borders() 
 
-#Lets look at world_GM
-world_GM
-ggplot() + geom_sf(USA_Cont)
+# Add population density by countries
+tm_shape(world) +
+  tm_fill(col = "pop") + 
+  tm_borders() 
+  
 
 ### Interactive Mapping with Leaflet -------------------------------------------
-
-
-### Tmap -----------------------------------------------------------------------
 
 ### Raster Data ----------------------------------------------------------------
 raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
