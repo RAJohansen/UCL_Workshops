@@ -81,7 +81,7 @@ library(rgdal)
 
 #load a simple basemap
 data("wrld_simpl")
-data
+
 # Plot World Basemap
 plot(wrld_simpl)
 
