@@ -147,10 +147,40 @@ tm_shape(world) +
   tm_borders() 
 
 # Add population density by countries
+#Default style is pretty (rounded numbers)
 tm_shape(world) +
   tm_fill(col = "pop") + 
   tm_borders() 
-  
+
+###Alternative legend settings for quantitative values
+# Defining number of groupings
+tm_shape(world) +
+  tm_fill(col = "pop", n =  5) + 
+  tm_borders() 
+
+# Using breaks in population
+breaks = c(0,10^6, 10^7, 10^8, 10^9, 10^10)
+tm_shape(world) +
+  tm_fill(col = "pop", breaks = breaks) + 
+  tm_borders() 
+
+# Using jenks
+tm_shape(world) +
+  tm_fill(col = "pop", style = "jenks") + 
+  tm_borders() 
+
+# Continuous scale
+tm_shape(world) +
+  tm_fill(col = "pop", style = "cont") + 
+  tm_borders() 
+
+# Mapping catagorical values
+tm_shape(world) +
+  tm_fill(col = "continent", style = "cat") + 
+  tm_borders() 
+
+
+
 
 ### Interactive Mapping with Leaflet -------------------------------------------
 
