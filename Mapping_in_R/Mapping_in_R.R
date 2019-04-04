@@ -118,8 +118,6 @@ plot(spointsdf,add=T,col=c('red'),pch=16) # add = T; adds this to existing plot
 text(-84.518986, 39.132979,labels="University of \n Cincinnati",pos=4, offset=0.3) # add label to an individual plot
 
 ### Mapping using tmap -----------------------------
-#https://geocompr.robinlovelace.net/ 
-
 library(tmap)
 library(spData)        # load geographic data
 
