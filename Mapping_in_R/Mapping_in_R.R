@@ -211,7 +211,10 @@ tm_shape(world) +
   tm_compass(type = "arrow", position = c("right", "top"), size = 1) +
   tm_scale_bar(breaks = c(0, 5000, 10000),size = 0.5, position = c(0.6,0.075))
 
-### Interactive Mapping with Leaflet -------------------------------------------
+
+### Advanced Applications ****OPTIONAL***--------------------------------------
+
+### Interactive Mapping with Leaflet
 # We can convert our static tmap into an interactive map by using leaflet
 library(leaflet)
 
@@ -224,8 +227,6 @@ map <- tm_shape(world) +
           popup.vars = c("name_long","lifeExp"))
 
 tmap_leaflet(map)
-
-#### Advanced Applications ****OPTIONAL ------------------------------------------------------------------
 
 ### Raster Data
 library(spDataLarge)   # load larger geographic data
