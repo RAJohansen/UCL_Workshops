@@ -1,17 +1,20 @@
-#########################
-###   Mapping in R    ###
-###  Richard Johansen ###
-###  April 18th 2019  ###
-#########################
+### ------------------------------------------------------------------------ ### 
+# Title: Mapping in R
+# Authors: Richard Johansen
+# University of Cincinnati Libraries
+# 4/18/2019
 
 #Code: https://github.com/RAJohansen/UCL_Workshops/tree/master/Mapping_in_R
-#Data Source: www.gapminder.org/data/
 
-
+# REFERENCES:
+# Data: www.gapminder.org/data/
+# Geocomputation in R: https://geocompr.robinlovelace.net/ 
+### ------------------------------------------------------------------------ ### 
 ### Introduction to R and Gapminder Data --------------------------------------
-#Install & Load Packages
-#install.packages("gapminder")
-library(dplyr)
+### Install Required Packages
+install.packages(c("tidyverse","gapminder", "maptools","tmap", "marmap", "spData", "spDataLarge", "spDataLarge"))
+
+#Load Packages
 library(gapminder)
 library(tidyverse)
 
@@ -73,11 +76,7 @@ dev.off()
 
 ### Mapping with base plot --------------------------------------------------------
 #Install & Load Packages
-library(raster)
-library(maps)
 library(maptools)
-library(ggmap)
-library(rgdal)
 
 #load a simple basemap
 data("wrld_simpl")
@@ -118,13 +117,12 @@ plot(USA_Cont)
 plot(spointsdf,add=T,col=c('red'),pch=16) # add = T; adds this to existing plot
 text(-84.518986, 39.132979,labels="University of \n Cincinnati",pos=4, offset=0.3) # add label to an individual plot
 
-### Mapping using Tmap -----------------------------
+### Mapping using tmap -----------------------------
 #https://geocompr.robinlovelace.net/ 
-library(raster)
-library(sf)
-library(spData)        # load geographic data
-library(spDataLarge)   # load larger geographic data
+
 library(tmap)
+library(spData)        # load geographic data
+
 #Lets create an object for Countries
 world <- world
 
@@ -189,21 +187,59 @@ tm_shape(world) +
 tm_shape(world) +
   tm_fill(col = "continent", style = "cat") + 
   tm_borders() +
-  tm_layout(title = "World Countries by Continent", legend.outside = TRUE, frame = FALSE) +
+  tm_layout(title = "World Countries by Continent",
+            title.size = 2,
+            frame = FALSE,
+            inner.margins = 0.1,
+            legend.title.size = 1,
+            legend.text.size = 0.75,
+            legend.outside = TRUE) +
   tm_compass(type = "arrow", position = c("right", "top"), size = 1) +
-  tm_scale_bar(breaks = c(0, 5000, 10000),size = 0.75)
+  tm_scale_bar(breaks = c(0, 5000, 10000),size = 0.5, position = c(0.6,0.075))
 
+### Mapping a globe color coded by continent isn't helpful
+# Lets use the same technique above to map Life expectancy 
+
+tm_shape(world) +
+  tm_fill(col = "lifeExp", style = "cont", colorNA = NULL) + 
+  tm_borders() +
+  tm_layout(title = "Life Expectancies by Country",
+            title.size = 2,
+            frame = FALSE,
+            inner.margins = 0.1,
+            legend.title.size = 1,
+            legend.text.size = 0.75,
+            legend.outside = TRUE) +
+  tm_compass(type = "arrow", position = c("right", "top"), size = 1) +
+  tm_scale_bar(breaks = c(0, 5000, 10000),size = 0.5, position = c(0.6,0.075))
 
 ### Interactive Mapping with Leaflet -------------------------------------------
+# We can convert our static tmap into an interactive map by using leaflet
+library(leaflet)
 
-### Raster Data ----------------------------------------------------------------
+map <- tm_shape(world) +
+  tm_fill(col = "lifeExp",
+          colorNA = NULL,
+          style = "cont",
+          palette = "RdYlGn",
+          id = "NAME",
+          popup.vars = c("name_long","lifeExp"))
+
+tmap_leaflet(map)
+
+#### Advanced Applications ****OPTIONAL ------------------------------------------------------------------
+
+### Raster Data
+library(spDataLarge)   # load larger geographic data
+
 raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
 srtm_raster = raster(raster_filepath)
 plot(srtm_raster)
 
-### Bathymetric Mapping from NOAA ----------------------------------------------
+### Bathymetric Mapping from NOAA
 library(marmap)
 library(lattice)
+
 blues <- colorRampPalette(c("darkblue", "cyan"))
 greys <- colorRampPalette(c(grey(0.4),grey(0.99)))
 Gulf<- getNOAA.bathy(-100,-79,33,23,resolution=10)
