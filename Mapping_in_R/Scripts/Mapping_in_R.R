@@ -12,7 +12,7 @@
 ### ------------------------------------------------------------------------ ### 
 ### Introduction to R and Gapminder Data --------------------------------------
 ### Install Required Packages
-install.packages(c("tidyverse","gapminder", "maptools","tmap", "marmap", "spData", "spDataLarge", "spDataLarge"))
+install.packages(c("tidyverse","gapminder", "maptools","tmap", "marmap", "spData", "spDataLarge", "spDataLarge", "cartogram"))
 
 #Load Packages
 library(gapminder)
@@ -227,6 +227,21 @@ map <- tm_shape(world) +
           popup.vars = c("name_long","lifeExp"))
 
 tmap_leaflet(map)
+
+
+### Cartograms
+library(cartogram)
+
+#Contiguous Cartograms
+nz_carto = cartogram_cont(nz, "Median_income", itermax = 5)
+tm_shape(nz_carto) + tm_polygons("Median_income")
+tm_shape(nz) + tm_polygons("Median_income")
+
+#Non-contiguious
+us_states2163 = st_transform(us_states, 2163)
+us_states2163_ncont = cartogram_ncont(us_states2163, "total_pop_15")
+tm_shape(us_states2163_ncont) + tm_polygons("total_pop_15")
+
 
 ### Raster Data
 library(spDataLarge)   # load larger geographic data
