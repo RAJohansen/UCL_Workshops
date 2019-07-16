@@ -77,6 +77,7 @@ dev.off()
 ### Mapping with base plot --------------------------------------------------------
 #Install & Load Packages
 library(maptools)
+library(raster)
 
 #load a simple basemap
 data("wrld_simpl")
@@ -236,6 +237,15 @@ library(cartogram)
 nz_carto = cartogram_cont(nz, "Median_income", itermax = 5)
 tm_shape(nz_carto) + tm_polygons("Median_income")
 tm_shape(nz) + tm_polygons("Median_income")
+
+# Plot Cartogram next to original map
+plot1 <- tm_shape(nz) + tm_polygons("Median_income")
+plot2 <- tm_shape(nz_carto) + tm_polygons("Median_income")
+
+grid.newpage()
+pushViewport(viewport(layout=grid.layout(1,2)))
+print(plot1, vp=viewport(layout.pos.col = 1))
+print(plot2, vp=viewport(layout.pos.col = 2))
 
 #Non-contiguious
 us_states2163 = st_transform(us_states, 2163)
