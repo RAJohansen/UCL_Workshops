@@ -238,7 +238,7 @@ nz_carto = cartogram_cont(nz, "Median_income", itermax = 5)
 tm_shape(nz_carto) + tm_polygons("Median_income")
 tm_shape(nz) + tm_polygons("Median_income")
 
-# Plot Cartogram next to original map
+# Plot NZ Cartogram next to original map
 plot1 <- tm_shape(nz) + tm_polygons("Median_income")
 plot2 <- tm_shape(nz_carto) + tm_polygons("Median_income")
 
@@ -251,7 +251,16 @@ print(plot2, vp=viewport(layout.pos.col = 2))
 us_states2163 = st_transform(us_states, 2163)
 us_states2163_ncont = cartogram_ncont(us_states2163, "total_pop_15")
 tm_shape(us_states2163_ncont) + tm_polygons("total_pop_15")
+tm_shape(us_states2163) + tm_polygons("total_pop_15")
 
+# Plot USA Cartogram next to original map
+plot3 <- tm_shape(us_states2163) + tm_polygons("total_pop_15")
+plot4 <- tm_shape(us_states2163_ncont) + tm_polygons("total_pop_15")
+
+grid.newpage()
+pushViewport(viewport(layout=grid.layout(1,2)))
+print(plot3, vp=viewport(layout.pos.col = 1))
+print(plot4, vp=viewport(layout.pos.col = 2))
 
 ### Raster Data
 library(spDataLarge)   # load larger geographic data
