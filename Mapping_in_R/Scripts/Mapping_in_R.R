@@ -12,7 +12,7 @@
 ### ------------------------------------------------------------------------ ### 
 ### Introduction to R and Gapminder Data --------------------------------------
 ### Install Required Packages
-install.packages(c("tidyverse","gapminder", "maptools","tmap", "marmap", "spData", "spDataLarge", "spDataLarge", "cartogram"))
+install.packages(c("tidyverse","grid", "gapminder", "maptools","tmap", "marmap", "spData", "spDataLarge", "spDataLarge", "cartogram"))
 
 #Load Packages
 library(gapminder)
@@ -100,6 +100,7 @@ plot(wrld_simpl,
 # Adding points from Lat Long
 coords <- matrix(c(-84.518986, 39.132979),ncol=2)
 coords <- coordinates(coords)
+
 spoints <- SpatialPoints(coords)
 df <- data.frame(location=c("UC"))
 spointsdf <- SpatialPointsDataFrame(spoints,df)
@@ -172,6 +173,7 @@ tm_shape(world) +
   tm_borders() 
 
 # Changing palettes
+#install.packages("shinyjs")
 tmaptools::palette_explorer()
 tm_shape(world) +
   tm_fill(col = "pop", style = "cont", palette = "magma") + 
@@ -232,6 +234,7 @@ tmap_leaflet(map)
 
 ### Cartograms
 library(cartogram)
+library(grid)
 
 #Contiguous Cartograms
 nz_carto = cartogram_cont(nz, "Median_income", itermax = 5)
@@ -262,7 +265,10 @@ pushViewport(viewport(layout=grid.layout(1,2)))
 print(plot3, vp=viewport(layout.pos.col = 1))
 print(plot4, vp=viewport(layout.pos.col = 2))
 
-### Raster Data
+# Explore tm_layout() to make aesthetic changes
+
+### Raster Data 
+# Requires R version 3.5+ (I dont have this!)
 library(spDataLarge)   # load larger geographic data
 
 raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
