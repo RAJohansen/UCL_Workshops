@@ -121,7 +121,7 @@ seq(50, 150, by =3) #define step by value
 my_seq <- seq(25, 0, by =-5) #define step by value
 
 
-### Section 2: Importing and Exporting data ----------------------------------------------------------------
+### Section II: Creating, Importing and Exporting data ----------------------------------------------------------------
 # Vectors: vectors (a row of numbers, also called 1-dimensional arrays)
 # Matrices: Matrices are nothing more than 2-dimensional vectors.
 # Data Frames: A data frame is a matrix with names above the columns 
@@ -129,13 +129,111 @@ my_seq <- seq(25, 0, by =-5) #define step by value
 #don't have to be of the same length, unlike matrices and data frames.
 
 ## Most of the time you will be working with Data frames
-#Additionally, these data sets will be from else where so you need to import them
 
-# Saving (writing) data
-write_csv(my_seq, "C:/temp/data.csv")
+#### 1. Creating A data frame ####
+# We can create a data frame by combining multiple vectors together
 
-# Importing data 
-df <- read.csv("C:/temp/data.csv")
+employee <- c('John','Peter','Abby','Hope','Robert', 'Emily')
+salary <- c(15000, 23400, 26800, 22000,35000,45000)
+experience <- c(1,2,3,2,4,7)
+
+# Using the data.frame function we can combine multiple vectors into a data frame
+company <- data.frame(employee, salary, experience)
+
+# You can view the data by clicking in the upper right hand corrner on Company
+# or use code through the View() function
+View(company)
+
+
+#### 2. Saving A data frame ####
+# There are many ways and types of formats to save but most commonly will be csv
+# For more information explore the readr package
+  #read_csv() #read csv into a tibble #read.csv() reads into a dataframe
+  #read_csv2() # semicolon sv into a tibble #read.csv2() reads into a dataframe
+  #read_tsv()  #Reads tab-deliminated into a tibble
+  #read_delim() # reads files with any delimiter
+  #read_fwf() #reads fixed width files
+  #read_table() #reads common variation of fixed-width files separated by white space
+
+# Saving (writing) data is simple in R
+?write.csv()
+#write.csv(x = <Name of R object>, file  = <"C:/temp/my_data.csv">)
+
+# Lets save our company data to our computer
+write.csv(my_seq, "C:/temp/data.csv")
+
+#### 3, Importing data ####
+# Just like saving, there are many ways to import data but we will stick with csv for this exercise
+
+# Importing our comapny data from our computer using read.csv and call it company_data
+?read.csv()
+# Alternatively, you can use the import dataset button in the top right (but using code is always beter)
+
+company_data <- read.csv("C:/temp/data.csv")
 df <- readxl::read_xlsx("C:/myfolder/mydata/data.xlsx")
-# Or using the import dataset button in the top right
+
+
+
+### Section III: Exploring & Manipulating data----------------------------------------------------------------
+Look at:
+  R_Tidyr_Basics
+  R_Stringr_Basics
+  R_Transformation_Basics
+  Introduction_to_the_Tidyverse
+
+
+
+
+#Lets explore data using a data set thats contained in R
+mtcars  <- mtcars
+
+#View our table
+#click the df object under the Data window or
+View(mtcars)
+
+# Lists the variables 
+names(mtcars)
+
+#Lets look at the structure of the data
+str(mtcars)
+#This will become very useful when we visualize the data
+#Make sure your variables are in the appropiate format!!
+
+## Statistical summary of the data
+summary(mtcars)
+
+## Finding values from out data table
+# Lets look at column 2 
+mtcars[,2]
+
+#Lets look at row 5
+mtcars[5,]
+
+#What value is in row 5 column 3?
+mtcars[5,3]
+
+# Based on this idea, we can make more complicated searches
+#Lets take the first ten mtcars and look at their MPG (1), HP(4), and qsec(7)
+mtcars[1:10,c(1,4,7)]
+
+# What if we want to know the max mpg
+max(mtcars$mpg)
+#Lets find the row number of the vehicle with the highest mpg
+which(mtcars== max(mtcars$mpg))
+#Then show me all columns for row 20
+df[20,]
+
+#**More efficiently
+df[which.max(mtcars$mpg),]
+
+#TASK 2
+#find the fastest car with 6 cylinders
+mtcars_6 <- mtcars[which(mtcars$cyl== 6),]
+mtcars_6[which.min(mtcars_6$qsec),]
+
+
+### Section IV: Programming with R ####
+Look at:
+  R_Interations_Purrr_Basics
+  R_Programming_Basics
 
