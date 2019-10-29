@@ -297,14 +297,53 @@ gapminder %>%
   filter(year == 2007) %>% 
   arrange(desc(gdp))
 
-Look at:
-  R_Tidyr_Basics
-R_Stringr_Basics
-R_Transformation_Basics
-Introduction_to_the_Tidyverse
+##################### NEED TO WORK HERE ######################################## 
 
 
 
+
+## The Summarize Verb --------------------------------------------
+# Summarize entire data set
+gapminder %>% 
+  summarize(meanLifeExp = mean(lifeExp))
+
+#Returns the mean of all rows (one value)
+
+#What if we want to return the mean life exp just for 2007
+gapminder %>% 
+  filter(year == 2007) %>% 
+  summarize(meanLifeExp = mean(lifeExp))
+
+# Creating multiple Summaries
+gapminder %>% 
+  filter(year == 2007) %>% 
+  summarize(meanLifeExp = mean(lifeExp),
+            totalPop = sum(pop))
+
+### The group_by Verb --------------------------------------------
+# The group_by verb is useful for creating groups to summarize
+gapminder <- gapminder
+gapminder$pop <- as.numeric(gapminder$pop)
+
+# Summarize by each unique year
+gapminder %>% 
+  group_by(year) %>% 
+  summarize(meanLifeExp = mean(lifeExp),
+            totalPop = sum(pop))
+
+# Summarize data from 2007 by continent
+gapminder %>% 
+  filter(year == 2007) %>% 
+  group_by(continent) %>% 
+  summarize(meanLifeExp = mean(lifeExp),
+            totalPop = sum(pop))
+
+### What if we want to summarize by continent over all years?
+#Simply add an additional arguement to the group_by verb
+gapminder %>% 
+  group_by(year, continent) %>% 
+  summarize(meanLifeExp = mean(lifeExp),
+            totalPop = sum(pop))
 
 
 
