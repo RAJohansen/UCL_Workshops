@@ -254,9 +254,6 @@ mtcars[20,]
 #The filter verb is used to look at a subset of a data set
 # Typically you combine filter with a pipe %>%
 
-mtcars %>% 
-  filter(year == 2007)
-
 gapminder %>% 
   filter(country == "United States")
 
@@ -320,10 +317,12 @@ gapminder %>%
   summarize(meanLifeExp = mean(lifeExp),
             totalPop = sum(pop))
 
+str(gapminder)
+#What data tyep is pop?
+gapminder$pop <- as.numeric(gapminder$pop)
+
 ### The group_by Verb --------------------------------------------
 # The group_by verb is useful for creating groups to summarize
-gapminder <- gapminder
-gapminder$pop <- as.numeric(gapminder$pop)
 
 # Summarize by each unique year
 gapminder %>% 
@@ -345,18 +344,111 @@ gapminder %>%
   summarize(meanLifeExp = mean(lifeExp),
             totalPop = sum(pop))
 
+#### Section III Tasks ####
+# Answer the following questions using the mtcars dataset
+mtcars <- mtcars
+View(mtcars)
+# Task 3A. find the median mpg & wt for each group of cylinders  
+mtcars %>% 
+  group_by(cyl) %>% 
+  summarize(median_mpg = median(mpg),
+            median_wt = median(wt))
 
-
-#### Section II Tasks ####
-#find the fastest car with 6 cylinders
-mtcars_6 <- mtcars[which(mtcars$cyl== 6),]
-mtcars_6[which.min(mtcars_6$qsec),]
-
+# Task 3B. find the mean of hp and drat for each group of gear and cyl & 
+          #find the ratio between mean hp and mean drat
+mtcars %>% 
+  group_by(cyl,gear) %>% 
+  summarize(mean_drat = mean(drat),
+            mean_hp = mean(hp),
+            hp_drat_ratio = mean_hp/mean_drat)
 
 ####---------------------------------####
 ####---------------------------------####
 ### Section IV: Programming with R ####
-Look at:
-  R_Interations_Purrr_Basics
-  R_Programming_Basics
+### Writing Functions ####
+#Functions are like black boxes but in this case you are creating the box
+#you do not care exactly how these are calculated just that it works.
 
+#Function recipe
+my_fun <- function(arg1, arg2) {
+  body
+}
+
+#Example #1
+#Lets write a function that outputs 3x the input called triple()
+
+#Triple function
+triple <- function(x) {
+  x*3
+}
+
+#Test triple function
+triple(6)
+#Hint: the last argument of the r function is automatically returned
+
+#Example #2
+#Lets write a function that outputs the area of circle
+# We only need one input, the radius, since pi constant
+
+AoC <- function(x) {
+  pi*(x)^2
+}
+
+#Test AoC function
+AoC(4)
+AoC(10)
+
+### Apply Family ####
+# Running loops is extremely common in programming 
+# R has built in functions that make running loops easier than using traditional for and while loops
+# These are the apply family, which we will briefly cover.
+?lapply()
+?sapply()
+
+### 
+areas <- list(2.37,2.49,2.18,2.22,2.47,2.32)
+
+AoC <- function(x) {
+  pi*(x)^2
+}
+
+# lapply was designed for lists
+lapply(areas, AoC)
+#unlist(lapply(areas, AoC))
+
+# sapply simplifies this task because all objects are the same data type.
+sapply(areas, AoC)
+
+
+####---------------------------------####
+####---------------------------------####
+#### OPTIONAL: Loops ####
+### While Loops ####
+#Recipe
+while (condition) {
+  expression
+}
+
+#Lets set a counter (ctr) to run while ctr is less than 7
+# And print ctr is set to "counter"
+ctr <- 1
+
+while( ctr <= 7) {
+  print(paste("ctr is set to", ctr))
+  ctr <- ctr + 1
+}
+
+### For Loops ####
+
+#Recipe
+for (var in seq){
+  expression
+}
+
+# Example
+cities  <- c("New York", "Paris", "London",
+             "Tokyo", "Rio de Janeiro", "Cape Town")
+
+for (city in cities){
+  print(city)
+}
