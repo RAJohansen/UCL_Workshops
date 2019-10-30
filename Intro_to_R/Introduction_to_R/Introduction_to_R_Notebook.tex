@@ -1,0 +1,1547 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={INTRODUCTION TO R},
+            pdfauthor={Richard Johansen},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{INTRODUCTION TO R}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Richard Johansen}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{10/31/2019}
+
+
+\begin{document}
+\maketitle
+
+\subsection{Workshop Summary and Contact
+Information}\label{workshop-summary-and-contact-information}
+
+\textbf{Summary:} R is a free and powerful programming language that is
+commonly used by researchers in both qualitative and quantitative
+disciplines. R provides a near comprehensive, and still expanding set of
+research and data analysis tools. This workshop provides a gradual
+introduction to the basics of programming with R using R Studio. As a
+participant in this workshop you will accomplish the following: explore
+the R Studio interface, perform basic data manipulation using the
+Tidyverse, learn how to install and run packages, and learn the basics
+of programming with R. The focus of this workshop will be hands-on
+exercises to provide a deeper and more effective understanding of R. No
+programming experience is required, and beginners are encouraged to
+attend.
+
+\textbf{Contact:}\\
+Email: \href{mailto:AskData@uc.edu}{\nolinkurl{AskData@uc.edu}}\\
+Location: 240 Braunstein Hall (GMP Library)\\
+Research \& Data Services Website:
+\url{https://libraries.uc.edu/research-teaching-support/research-data-services.html}
+GitHub: \url{https://github.com/RAJohansen/UCL_Workshops} Twitter:
+\url{https://twitter.com/johansen_phd}
+
+\subsubsection{Section I: Coding Basics}\label{section-i-coding-basics}
+
+\paragraph{1. R as a Calculator/Working with Mathematical
+Operators}\label{r-as-a-calculatorworking-with-mathematical-operators}
+
+\subparagraph{Addition (+)}\label{addition}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1}\OperatorTok{+}\DecValTok{2} 
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3
+\end{verbatim}
+
+\subparagraph{Subtraction (-)}\label{subtraction--}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{15}\OperatorTok{-}\DecValTok{8}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7
+\end{verbatim}
+
+\subparagraph{Multiplication (*)}\label{multiplication}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{12}\OperatorTok{*}\DecValTok{20}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 240
+\end{verbatim}
+
+\subparagraph{Division (/)}\label{division}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{20}\OperatorTok{/}\DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+
+\subparagraph{Equation}\label{equation}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sin}\NormalTok{(pi}\OperatorTok{*}\DecValTok{15}\NormalTok{)}\OperatorTok{/}\DecValTok{100}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5.389623e-17
+\end{verbatim}
+
+\paragraph{2. Objects and Assignment
+Statements}\label{objects-and-assignment-statements}
+
+R stores values and objects so they can be reused throughout an equation
+or script
+
+\subparagraph{Object Assignment}\label{object-assignment}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\DecValTok{1}\OperatorTok{+}\DecValTok{2}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3
+\end{verbatim}
+
+\subparagraph{Working with multiple
+objects}\label{working-with-multiple-objects}
+
+Hint alt - is a shortcut for the \textless{} -
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y <-}\StringTok{ }\NormalTok{x }\OperatorTok{+}\DecValTok{1}
+\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+
+\paragraph{3. Naming Convention}\label{naming-convention}
+
+\subparagraph{Quick tips for naming
+convention:}\label{quick-tips-for-naming-convention}
+
+Short \& sweet\\
+Case sensative: x != X\\
+Must Start with a letter\\
+Only numbers, letters, \_, and .\\
+\#\#\#\#\# Cases: snake case: ``i\_use\_snake\_case''\\
+Camel Case: ``iUseCamelCase''\\
+periods: ``i.use.periods''\\
+combinations: ``iCant\_decide.which\_toUse''\\
+\#\#\#\# 4. Using Comments The \# sign is used to create a comment,
+which are essential for reproducible code/ Remember, your most likely
+collaborator is future you!!
+
+\subparagraph{Simple example}\label{simple-example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1}\OperatorTok{+}\DecValTok{1} \CommentTok{# This is the formula for 1+1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+\subparagraph{More complicated}\label{more-complicated}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p <-}\StringTok{ }\FloatTok{3.14}
+\NormalTok{RoC <-}\StringTok{ }\DecValTok{4}
+\NormalTok{x <-}\StringTok{ }\NormalTok{p}\OperatorTok{*}\NormalTok{RoC}\OperatorTok{^}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{What is this calculating?}\label{what-is-this-calculating}
+
+Can we rewrite this so others have an easier time understanding it?\\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pi <-}\StringTok{ }\FloatTok{3.14} \CommentTok{#rounded value of pi}
+\NormalTok{r <-}\StringTok{ }\DecValTok{4} \CommentTok{#radius of a circle}
+\NormalTok{area <-}\StringTok{ }\NormalTok{pi}\OperatorTok{*}\NormalTok{r}\OperatorTok{^}\DecValTok{2} \CommentTok{#formula for calculating the area of a circle}
+\end{Highlighting}
+\end{Shaded}
+
+This still is somewhat intuitive but what if you're making your own
+formula?\\
+HINT: Do not use ``magic'' numbers\\
+Every number standalone number should have a description Example p
+above.\\
+\#\#\#\# 5. Creating a series of numbers Lets say you want to create a
+series of numbers from 1-10 and call the object ``series''\\
+You can use the c function to combine elements together\\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{series <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+However what if you wanted to create a series to 100?\\
+Using c() would take too long, so we use a range of values by using the
+``:''\\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{series <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{100}
+\end{Highlighting}
+\end{Shaded}
+
+Easy right? This is because the series is in order but what if we want a
+series of 1:100 by 2?\\
+This is were we want to introduce functions
+
+\paragraph{6. Understanding how to interpret
+functions}\label{understanding-how-to-interpret-functions}
+
+General recipe for functions:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{function_name}\NormalTok{(argument }\CommentTok{#1 = value #1,}
+\NormalTok{              argument }\CommentTok{#2 = value #2)}
+\end{Highlighting}
+\end{Shaded}
+
+Going back to our series task, we want to create a series of numbers
+from 1 to 100 by 2. Luckily there are many functions already available
+to use in base R (many many more available from packages, which we will
+discuss later).\\[2\baselineskip]Given that we are just learning R, I
+will tell you that the function is called ``seq()''\\
+The first thing I do when using a new functions is to look at the
+documentation. You can use the ? to find R documentation.\\
+\textbf{HINT: Scroll to the bottom of the help page for workable
+examples.}\\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?}\KeywordTok{seq}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{7. Getting Help in R}\label{getting-help-in-r}
+
+\textbf{HINT: if you can't remember exactly what function you are
+looking for, Use Tab.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{me}\OperatorTok{<}\NormalTok{tab}\OperatorTok{>}
+\end{Highlighting}
+\end{Shaded}
+
+Additionally, if you are not sure what the function is called try a
+fuzzy search.\\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{apropos}\NormalTok{(}\StringTok{"mea"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Section I Tasks}\label{section-i-tasks}
+
+Work with your neighbor or by yourself and explore the documentation to
+be able to complete the following:
+
+\paragraph{Task 1A:}\label{task-1a}
+
+Create a sequence from 1 to 10 using the seq() function
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  1  2  3  4  5  6  7  8  9 10
+\end{verbatim}
+
+\paragraph{Task 1B:}\label{task-1b}
+
+Create a sequence of numbers from 50 to 150 by 3
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{seq}\NormalTok{(}\DecValTok{50}\NormalTok{, }\DecValTok{150}\NormalTok{, }\DataTypeTok{by =}\DecValTok{3}\NormalTok{) }\CommentTok{#define step by value}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  50  53  56  59  62  65  68  71  74  77  80  83  86  89  92  95  98
+## [18] 101 104 107 110 113 116 119 122 125 128 131 134 137 140 143 146 149
+\end{verbatim}
+
+\paragraph{Task 1C:}\label{task-1c}
+
+Create a sequence of numbers from 25 to 0 decreasing by 5 and save it an
+object called ``my\_seq''
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_seq <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{25}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DataTypeTok{by =}\OperatorTok{-}\DecValTok{5}\NormalTok{) }\CommentTok{#define step by value}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Section II: Creating, Importing and Exporting
+data}\label{section-ii-creating-importing-and-exporting-data}
+
+\paragraph{Data Types:}\label{data-types}
+
+Vectors: vectors (a row of numbers, also called 1-dimensional arrays)\\
+Matrices: Matrices are nothing more than 2-dimensional vectors.\\
+Data Frames: A data frame is a matrix with names above the columns.\\
+Lists: The main advantage of lists is that the columns or collection of
+vectors, which don't have to be of the same length unlike matrices and
+data frames.\\
+\textbf{HINT: However most of the time you will be working with data
+frames.}
+
+\paragraph{1. Creating A data frame}\label{creating-a-data-frame}
+
+We can create a data frame by combining multiple vectors together
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{employee <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'John'}\NormalTok{,}\StringTok{'Peter'}\NormalTok{,}\StringTok{'Abby'}\NormalTok{,}\StringTok{'Hope'}\NormalTok{,}\StringTok{'Robert'}\NormalTok{, }\StringTok{'Emily'}\NormalTok{)}
+\NormalTok{salary <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{15000}\NormalTok{, }\DecValTok{23400}\NormalTok{, }\DecValTok{26800}\NormalTok{, }\DecValTok{22000}\NormalTok{,}\DecValTok{35000}\NormalTok{,}\DecValTok{45000}\NormalTok{)}
+\NormalTok{experience <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Using the data.frame() function we can combine multiple vectors into a
+data frame
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{company <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(employee, salary, experience)}
+\end{Highlighting}
+\end{Shaded}
+
+You can view the data by clicking in the upper right hand corrner on
+Company, or use code through the View() function
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{View}\NormalTok{(company)}
+\end{Highlighting}
+\end{Shaded}
+
+Another way to explore your new data frame quickly is by using the
+head() function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(company)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   employee salary experience
+## 1     John  15000          1
+## 2    Peter  23400          2
+## 3     Abby  26800          3
+## 4     Hope  22000          2
+## 5   Robert  35000          4
+## 6    Emily  45000          7
+\end{verbatim}
+
+\paragraph{2. Saving A data frame}\label{saving-a-data-frame}
+
+\subparagraph{File Types:}\label{file-types}
+
+read\_csv() \#read csv into a tibble \#read.csv() reads into a
+dataframe\\
+read\_csv2() \# semicolon sv into a tibble \#read.csv2() reads into a
+dataframe\\
+read\_tsv() \#Reads tab-deliminated into a tibble\\
+read\_delim() \# reads files with any delimiter\\
+read\_fwf() \#reads fixed width files\\
+read\_table() \#reads common variation of fixed-width files separated by
+white space\\
+\textbf{HINT:For more information explore the readr package }
+
+\section{Saving (writing) data is simple in
+R}\label{saving-writing-data-is-simple-in-r}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?}\KeywordTok{write.csv}\NormalTok{()}
+\KeywordTok{write.csv}\NormalTok{(}\DataTypeTok{x =} \OperatorTok{<}\NormalTok{Name of R object}\OperatorTok{>}\NormalTok{, }\DataTypeTok{file  =} \OperatorTok{<}\StringTok{"C:/temp/my_data.csv"}\OperatorTok{>}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Lets save our company data to our computer
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{write.csv}\NormalTok{(my_seq, }\StringTok{"C:/temp/data.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Section III: Exploring the
+Tidyverse!}\label{section-iii-exploring-the-tidyverse}
+
+\paragraph{Install and Load the tidyverse
+package}\label{install-and-load-the-tidyverse-package}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: tidyverse
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'tidyverse' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------------------------------------------------------------------------------- tidyverse 1.2.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.1.1     v purrr   0.3.2
+## v tibble  2.1.1     v dplyr   0.8.1
+## v tidyr   0.8.3     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.4.0
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'ggplot2' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'tibble' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'tidyr' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'readr' was built under R version 3.5.2
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'purrr' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'dplyr' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'stringr' was built under R version 3.5.2
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'forcats' was built under R version 3.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------------------------------------------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(}\StringTok{"gapminder"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: gapminder
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'gapminder' was built under R version 3.5.3
+\end{verbatim}
+
+\paragraph{Explore the Tidyverse}\label{explore-the-tidyverse}
+
+\url{https://www.tidyverse.org/}
+
+R packages only have to be installed once but loaded everytime.\\
+Using require is a nice way to make sure every script has the packages
+needed which combines install.packages() \& library()
+
+\paragraph{1. Basic Data Exploration}\label{basic-data-exploration}
+
+In this section we will use the gapminder data set
+\url{https://www.gapminder.org/}
+
+\subparagraph{Lets assign this to
+gapminder}\label{lets-assign-this-to-gapminder}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder <-}\StringTok{ }\NormalTok{gapminder}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{View our table}\label{view-our-table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{View}\NormalTok{(gapminder)}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{Lists the variables}\label{lists-the-variables}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{names}\NormalTok{(gapminder)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "country"   "continent" "year"      "lifeExp"   "pop"       "gdpPercap"
+\end{verbatim}
+
+\subparagraph{Lets Examine the structure of the
+data}\label{lets-examine-the-structure-of-the-data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{(gapminder)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Classes 'tbl_df', 'tbl' and 'data.frame':    1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...
+\end{verbatim}
+
+This will become very useful when we visualize or analyze data, because
+we must make sure our variables are in the appropriate format!!
+
+\subparagraph{Statistical summary of the
+data}\label{statistical-summary-of-the-data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(gapminder)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         country        continent        year         lifeExp     
+##  Afghanistan:  12   Africa  :624   Min.   :1952   Min.   :23.60  
+##  Albania    :  12   Americas:300   1st Qu.:1966   1st Qu.:48.20  
+##  Algeria    :  12   Asia    :396   Median :1980   Median :60.71  
+##  Angola     :  12   Europe  :360   Mean   :1980   Mean   :59.47  
+##  Argentina  :  12   Oceania : 24   3rd Qu.:1993   3rd Qu.:70.85  
+##  Australia  :  12                  Max.   :2007   Max.   :82.60  
+##  (Other)    :1632                                                
+##       pop              gdpPercap       
+##  Min.   :6.001e+04   Min.   :   241.2  
+##  1st Qu.:2.794e+06   1st Qu.:  1202.1  
+##  Median :7.024e+06   Median :  3531.8  
+##  Mean   :2.960e+07   Mean   :  7215.3  
+##  3rd Qu.:1.959e+07   3rd Qu.:  9325.5  
+##  Max.   :1.319e+09   Max.   :113523.1  
+## 
+\end{verbatim}
+
+\paragraph{2. Exploring our data
+further}\label{exploring-our-data-further}
+
+\textbf{HINT: Understanding how data is indexed is crutial for R
+programming}
+
+\subparagraph{Lets look at column 2}\label{lets-look-at-column-2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder[,}\DecValTok{2}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,704 x 1
+##    continent
+##    <fct>    
+##  1 Asia     
+##  2 Asia     
+##  3 Asia     
+##  4 Asia     
+##  5 Asia     
+##  6 Asia     
+##  7 Asia     
+##  8 Asia     
+##  9 Asia     
+## 10 Asia     
+## # ... with 1,694 more rows
+\end{verbatim}
+
+gapminder{[},2{]}
+
+\subparagraph{Lets look at row 5}\label{lets-look-at-row-5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder[}\DecValTok{5}\NormalTok{,]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 6
+##   country     continent  year lifeExp      pop gdpPercap
+##   <fct>       <fct>     <int>   <dbl>    <int>     <dbl>
+## 1 Afghanistan Asia       1972    36.1 13079460      740.
+\end{verbatim}
+
+\subparagraph{What value is in row 5 column
+3?}\label{what-value-is-in-row-5-column-3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder[}\DecValTok{5}\NormalTok{,}\DecValTok{3}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##    year
+##   <int>
+## 1  1972
+\end{verbatim}
+
+\subparagraph{Based on this idea, we can make more complicated searches.
+Lets take the first ten observations and look at the variables:Country
+(1), Continent(2), Year (3), and population
+(5)}\label{based-on-this-idea-we-can-make-more-complicated-searches.-lets-take-the-first-ten-observations-and-look-at-the-variablescountry-1-continent2-year-3-and-population-5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 10 x 4
+##    country     continent  year      pop
+##    <fct>       <fct>     <int>    <int>
+##  1 Afghanistan Asia       1952  8425333
+##  2 Afghanistan Asia       1957  9240934
+##  3 Afghanistan Asia       1962 10267083
+##  4 Afghanistan Asia       1967 11537966
+##  5 Afghanistan Asia       1972 13079460
+##  6 Afghanistan Asia       1977 14880372
+##  7 Afghanistan Asia       1982 12881816
+##  8 Afghanistan Asia       1987 13867957
+##  9 Afghanistan Asia       1992 16317921
+## 10 Afghanistan Asia       1997 22227415
+\end{verbatim}
+
+\subparagraph{What if we want to know the highest
+gpdPercap}\label{what-if-we-want-to-know-the-highest-gpdpercap}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{max}\NormalTok{(gapminder}\OperatorTok{$}\NormalTok{gdpPercap)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 113523.1
+\end{verbatim}
+
+\subparagraph{Lets find the row number of the country with the highest
+gpdpercap}\label{lets-find-the-row-number-of-the-country-with-the-highest-gpdpercap}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{which.max}\NormalTok{(gapminder}\OperatorTok{$}\NormalTok{gdpPercap)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 854
+\end{verbatim}
+
+\section{Then show me all columns for row that
+row}\label{then-show-me-all-columns-for-row-that-row}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder[}\DecValTok{854}\NormalTok{,]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 6
+##   country continent  year lifeExp    pop gdpPercap
+##   <fct>   <fct>     <int>   <dbl>  <int>     <dbl>
+## 1 Kuwait  Asia       1957    58.0 212846   113523.
+\end{verbatim}
+
+\paragraph{2. The filter verb}\label{the-filter-verb}
+
+The filter verb is used to look at a subset of a data set.\\
+Typically you combine filter with a pipe \%\textgreater{}\%
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(country }\OperatorTok{==}\StringTok{ "United States"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 6
+##    country       continent  year lifeExp       pop gdpPercap
+##    <fct>         <fct>     <int>   <dbl>     <int>     <dbl>
+##  1 United States Americas   1952    68.4 157553000    13990.
+##  2 United States Americas   1957    69.5 171984000    14847.
+##  3 United States Americas   1962    70.2 186538000    16173.
+##  4 United States Americas   1967    70.8 198712000    19530.
+##  5 United States Americas   1972    71.3 209896000    21806.
+##  6 United States Americas   1977    73.4 220239000    24073.
+##  7 United States Americas   1982    74.6 232187835    25010.
+##  8 United States Americas   1987    75.0 242803533    29884.
+##  9 United States Americas   1992    76.1 256894189    32004.
+## 10 United States Americas   1997    76.8 272911760    35767.
+## 11 United States Americas   2002    77.3 287675526    39097.
+## 12 United States Americas   2007    78.2 301139947    42952.
+\end{verbatim}
+
+\subparagraph{Multiple conditions}\label{multiple-conditions}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(year }\OperatorTok{==}\StringTok{ }\DecValTok{2007}\NormalTok{, country }\OperatorTok{==}\StringTok{ "United States"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 6
+##   country       continent  year lifeExp       pop gdpPercap
+##   <fct>         <fct>     <int>   <dbl>     <int>     <dbl>
+## 1 United States Americas   2007    78.2 301139947    42952.
+\end{verbatim}
+
+\paragraph{The arrange verb
+----------------------------------}\label{the-arrange-verb--}
+
+Used for sorting data by ascending or descending condition\\
+\#\#\#\#\# Ascending Order
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(gdpPercap)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,704 x 6
+##    country          continent  year lifeExp      pop gdpPercap
+##    <fct>            <fct>     <int>   <dbl>    <int>     <dbl>
+##  1 Congo, Dem. Rep. Africa     2002    45.0 55379852      241.
+##  2 Congo, Dem. Rep. Africa     2007    46.5 64606759      278.
+##  3 Lesotho          Africa     1952    42.1   748747      299.
+##  4 Guinea-Bissau    Africa     1952    32.5   580653      300.
+##  5 Congo, Dem. Rep. Africa     1997    42.6 47798986      312.
+##  6 Eritrea          Africa     1952    35.9  1438760      329.
+##  7 Myanmar          Asia       1952    36.3 20092996      331 
+##  8 Lesotho          Africa     1957    45.0   813338      336.
+##  9 Burundi          Africa     1952    39.0  2445618      339.
+## 10 Eritrea          Africa     1957    38.0  1542611      344.
+## # ... with 1,694 more rows
+\end{verbatim}
+
+\subparagraph{Descending order}\label{descending-order}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(gdpPercap))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,704 x 6
+##    country   continent  year lifeExp     pop gdpPercap
+##    <fct>     <fct>     <int>   <dbl>   <int>     <dbl>
+##  1 Kuwait    Asia       1957    58.0  212846   113523.
+##  2 Kuwait    Asia       1972    67.7  841934   109348.
+##  3 Kuwait    Asia       1952    55.6  160000   108382.
+##  4 Kuwait    Asia       1962    60.5  358266    95458.
+##  5 Kuwait    Asia       1967    64.6  575003    80895.
+##  6 Kuwait    Asia       1977    69.3 1140357    59265.
+##  7 Norway    Europe     2007    80.2 4627926    49357.
+##  8 Kuwait    Asia       2007    77.6 2505559    47307.
+##  9 Singapore Asia       2007    80.0 4553009    47143.
+## 10 Norway    Europe     2002    79.0 4535591    44684.
+## # ... with 1,694 more rows
+\end{verbatim}
+
+\subparagraph{Combining verbs}\label{combining-verbs}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(year }\OperatorTok{==}\StringTok{ }\DecValTok{2007}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(gdpPercap)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 142 x 6
+##    country                  continent  year lifeExp      pop gdpPercap
+##    <fct>                    <fct>     <int>   <dbl>    <int>     <dbl>
+##  1 Congo, Dem. Rep.         Africa     2007    46.5 64606759      278.
+##  2 Liberia                  Africa     2007    45.7  3193942      415.
+##  3 Burundi                  Africa     2007    49.6  8390505      430.
+##  4 Zimbabwe                 Africa     2007    43.5 12311143      470.
+##  5 Guinea-Bissau            Africa     2007    46.4  1472041      579.
+##  6 Niger                    Africa     2007    56.9 12894865      620.
+##  7 Eritrea                  Africa     2007    58.0  4906585      641.
+##  8 Ethiopia                 Africa     2007    52.9 76511887      691.
+##  9 Central African Republic Africa     2007    44.7  4369038      706.
+## 10 Gambia                   Africa     2007    59.4  1688359      753.
+## # ... with 132 more rows
+\end{verbatim}
+
+\paragraph{The mutate verb}\label{the-mutate-verb}
+
+Change or Add variables to a data set
+
+\subparagraph{Change a variable}\label{change-a-variable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{pop =}\NormalTok{ pop}\OperatorTok{/}\DecValTok{1000000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,704 x 6
+##    country     continent  year lifeExp   pop gdpPercap
+##    <fct>       <fct>     <int>   <dbl> <dbl>     <dbl>
+##  1 Afghanistan Asia       1952    28.8  8.43      779.
+##  2 Afghanistan Asia       1957    30.3  9.24      821.
+##  3 Afghanistan Asia       1962    32.0 10.3       853.
+##  4 Afghanistan Asia       1967    34.0 11.5       836.
+##  5 Afghanistan Asia       1972    36.1 13.1       740.
+##  6 Afghanistan Asia       1977    38.4 14.9       786.
+##  7 Afghanistan Asia       1982    39.9 12.9       978.
+##  8 Afghanistan Asia       1987    40.8 13.9       852.
+##  9 Afghanistan Asia       1992    41.7 16.3       649.
+## 10 Afghanistan Asia       1997    41.8 22.2       635.
+## # ... with 1,694 more rows
+\end{verbatim}
+
+\subparagraph{Add a new variable called
+gdp}\label{add-a-new-variable-called-gdp}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{gdp =}\NormalTok{ gdpPercap }\OperatorTok{*}\StringTok{ }\NormalTok{pop)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,704 x 7
+##    country     continent  year lifeExp      pop gdpPercap          gdp
+##    <fct>       <fct>     <int>   <dbl>    <int>     <dbl>        <dbl>
+##  1 Afghanistan Asia       1952    28.8  8425333      779.  6567086330.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.  7585448670.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.  8758855797.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.  9648014150.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.  9678553274.
+##  6 Afghanistan Asia       1977    38.4 14880372      786. 11697659231.
+##  7 Afghanistan Asia       1982    39.9 12881816      978. 12598563401.
+##  8 Afghanistan Asia       1987    40.8 13867957      852. 11820990309.
+##  9 Afghanistan Asia       1992    41.7 16317921      649. 10595901589.
+## 10 Afghanistan Asia       1997    41.8 22227415      635. 14121995875.
+## # ... with 1,694 more rows
+\end{verbatim}
+
+\subsubsection{Combine all three verbs}\label{combine-all-three-verbs}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{gdp =}\NormalTok{ gdpPercap }\OperatorTok{*}\StringTok{ }\NormalTok{pop) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(year }\OperatorTok{==}\StringTok{ }\DecValTok{2007}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(gdp))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 142 x 7
+##    country        continent  year lifeExp        pop gdpPercap     gdp
+##    <fct>          <fct>     <int>   <dbl>      <int>     <dbl>   <dbl>
+##  1 United States  Americas   2007    78.2  301139947    42952. 1.29e13
+##  2 China          Asia       2007    73.0 1318683096     4959. 6.54e12
+##  3 Japan          Asia       2007    82.6  127467972    31656. 4.04e12
+##  4 India          Asia       2007    64.7 1110396331     2452. 2.72e12
+##  5 Germany        Europe     2007    79.4   82400996    32170. 2.65e12
+##  6 United Kingdom Europe     2007    79.4   60776238    33203. 2.02e12
+##  7 France         Europe     2007    80.7   61083916    30470. 1.86e12
+##  8 Brazil         Americas   2007    72.4  190010647     9066. 1.72e12
+##  9 Italy          Europe     2007    80.5   58147733    28570. 1.66e12
+## 10 Mexico         Americas   2007    76.2  108700891    11978. 1.30e12
+## # ... with 132 more rows
+\end{verbatim}
+
+\paragraph{The Summarize Verb}\label{the-summarize-verb}
+
+\subparagraph{Summarize entire data
+set}\label{summarize-entire-data-set}
+
+Returns the mean of all rows (one value)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{meanLifeExp =} \KeywordTok{mean}\NormalTok{(lifeExp))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##   meanLifeExp
+##         <dbl>
+## 1        59.5
+\end{verbatim}
+
+\subparagraph{What if we want to return the mean life exp just for
+2007}\label{what-if-we-want-to-return-the-mean-life-exp-just-for-2007}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(year }\OperatorTok{==}\StringTok{ }\DecValTok{2007}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{meanLifeExp =} \KeywordTok{mean}\NormalTok{(lifeExp))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##   meanLifeExp
+##         <dbl>
+## 1        67.0
+\end{verbatim}
+
+\subparagraph{Creating multiple
+Summaries}\label{creating-multiple-summaries}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(year }\OperatorTok{==}\StringTok{ }\DecValTok{2007}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{meanLifeExp =} \KeywordTok{mean}\NormalTok{(lifeExp),}
+            \DataTypeTok{totalPop =} \KeywordTok{sum}\NormalTok{(pop))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in summarise_impl(.data, dots, environment(), caller_env()):
+## integer overflow - use sum(as.numeric(.))
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 1 x 2
+##   meanLifeExp totalPop
+##         <dbl>    <int>
+## 1        67.0       NA
+\end{verbatim}
+
+\textbf{HINT: What data type is pop? Use str(gapminder)}
+
+\subparagraph{Convert pop to a numeric data type instead of an
+integer}\label{convert-pop-to-a-numeric-data-type-instead-of-an-integer}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder}\OperatorTok{$}\NormalTok{pop <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(gapminder}\OperatorTok{$}\NormalTok{pop)}
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{The group\_by Verb}\label{the-group_by-verb}
+
+The group\_by verb is useful for creating aggregated groups, especially
+when combined with the summarize function
+
+\subparagraph{Summarize by each unique
+year}\label{summarize-by-each-unique-year}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(year) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{meanLifeExp =} \KeywordTok{mean}\NormalTok{(lifeExp),}
+            \DataTypeTok{totalPop =} \KeywordTok{sum}\NormalTok{(pop))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 3
+##     year meanLifeExp   totalPop
+##    <int>       <dbl>      <dbl>
+##  1  1952        49.1 2406957150
+##  2  1957        51.5 2664404580
+##  3  1962        53.6 2899782974
+##  4  1967        55.7 3217478384
+##  5  1972        57.6 3576977158
+##  6  1977        59.6 3930045807
+##  7  1982        61.5 4289436840
+##  8  1987        63.2 4691477418
+##  9  1992        64.2 5110710260
+## 10  1997        65.0 5515204472
+## 11  2002        65.7 5886977579
+## 12  2007        67.0 6251013179
+\end{verbatim}
+
+\subparagraph{Summarize data from 2007 by
+continent}\label{summarize-data-from-2007-by-continent}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(year }\OperatorTok{==}\StringTok{ }\DecValTok{2007}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(continent) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{meanLifeExp =} \KeywordTok{mean}\NormalTok{(lifeExp),}
+            \DataTypeTok{totalPop =} \KeywordTok{sum}\NormalTok{(pop))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 3
+##   continent meanLifeExp   totalPop
+##   <fct>           <dbl>      <dbl>
+## 1 Africa           54.8  929539692
+## 2 Americas         73.6  898871184
+## 3 Asia             70.7 3811953827
+## 4 Europe           77.6  586098529
+## 5 Oceania          80.7   24549947
+\end{verbatim}
+
+\subparagraph{What if we want to summarize by continent over all
+years?}\label{what-if-we-want-to-summarize-by-continent-over-all-years}
+
+\textbf{HINT: Simply add an additional arguement to the group\_by verb}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(year, continent) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{meanLifeExp =} \KeywordTok{mean}\NormalTok{(lifeExp),}
+            \DataTypeTok{totalPop =} \KeywordTok{sum}\NormalTok{(pop))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 60 x 4
+## # Groups:   year [12]
+##     year continent meanLifeExp   totalPop
+##    <int> <fct>           <dbl>      <dbl>
+##  1  1952 Africa           39.1  237640501
+##  2  1952 Americas         53.3  345152446
+##  3  1952 Asia             46.3 1395357351
+##  4  1952 Europe           64.4  418120846
+##  5  1952 Oceania          69.3   10686006
+##  6  1957 Africa           41.3  264837738
+##  7  1957 Americas         56.0  386953916
+##  8  1957 Asia             49.3 1562780599
+##  9  1957 Europe           66.7  437890351
+## 10  1957 Oceania          70.3   11941976
+## # ... with 50 more rows
+\end{verbatim}
+
+\subsubsection{Section III Tasks}\label{section-iii-tasks}
+
+Answer the following questions using the mtcars dataset
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars <-}\StringTok{ }\NormalTok{mtcars}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{Task 3A. find the median mpg \& wt for each group of
+cylinders}\label{task-3a.-find-the-median-mpg-wt-for-each-group-of-cylinders}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(cyl) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{median_mpg =} \KeywordTok{median}\NormalTok{(mpg),}
+            \DataTypeTok{median_wt =} \KeywordTok{median}\NormalTok{(wt))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 3
+##     cyl median_mpg median_wt
+##   <dbl>      <dbl>     <dbl>
+## 1     4       26        2.2 
+## 2     6       19.7      3.22
+## 3     8       15.2      3.76
+\end{verbatim}
+
+mtcars \%\textgreater{}\% group\_by(cyl) \%\textgreater{}\%
+summarize(median\_mpg = median(mpg), median\_wt = median(wt))
+
+\subparagraph{Task 3B. find the mean of hp and drat for each group of
+gear and cyl
+\&}\label{task-3b.-find-the-mean-of-hp-and-drat-for-each-group-of-gear-and-cyl}
+
+\begin{verbatim}
+      #find the ratio between mean hp and mean drat
+      
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(cyl,gear) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{mean_drat =} \KeywordTok{mean}\NormalTok{(drat),}
+            \DataTypeTok{mean_hp =} \KeywordTok{mean}\NormalTok{(hp),}
+            \DataTypeTok{hp_drat_ratio =}\NormalTok{ mean_hp}\OperatorTok{/}\NormalTok{mean_drat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 8 x 5
+## # Groups:   cyl [3]
+##     cyl  gear mean_drat mean_hp hp_drat_ratio
+##   <dbl> <dbl>     <dbl>   <dbl>         <dbl>
+## 1     4     3      3.7      97           26.2
+## 2     4     4      4.11     76           18.5
+## 3     4     5      4.1     102           24.9
+## 4     6     3      2.92    108.          36.8
+## 5     6     4      3.91    116.          29.8
+## 6     6     5      3.62    175           48.3
+## 7     8     3      3.12    194.          62.2
+## 8     8     5      3.88    300.          77.2
+\end{verbatim}
+
+\subsubsection{Section IV: Programming with
+R}\label{section-iv-programming-with-r}
+
+\paragraph{Writing Functions}\label{writing-functions}
+
+Functions are like black boxes but in this case you are creating the box
+
+\subparagraph{Function recipe}\label{function-recipe}
+
+my\_fun \textless{}- function(arg1, arg2) \{ body \}
+
+\subparagraph{Example \#1}\label{example-1}
+
+Lets write a function that outputs 3x the input, x, and call the
+function triple()
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{triple <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+\NormalTok{  x}\OperatorTok{*}\DecValTok{3}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{Test the triple function}\label{test-the-triple-function}
+
+\textbf{Hint: the last argument of the r function is automatically
+returned}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{triple}\NormalTok{(}\DecValTok{6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 18
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{triple}\NormalTok{(}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 30
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{triple}\NormalTok{(}\OperatorTok{-}\FloatTok{1.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -3.9
+\end{verbatim}
+
+\subparagraph{Example \#2}\label{example-2}
+
+Lets write a function that outputs the area of circle. In this case we
+only need one input, the radius, since pi constant.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{AoC <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+\NormalTok{  pi}\OperatorTok{*}\NormalTok{(x)}\OperatorTok{^}\DecValTok{2}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{Test AoC function}\label{test-aoc-function}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{AoC}\NormalTok{(}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 50.24
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{AoC}\NormalTok{(}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 314
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{AoC}\NormalTok{(}\FloatTok{2.35}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 17.34065
+\end{verbatim}
+
+\paragraph{Apply Family}\label{apply-family}
+
+Running loops is extremely common in programming. One power aspect to R
+is that it has built in functions that make running loops easier than
+using traditional for and while loops. These functions are contained in
+the apply family, which we will briefly cover.
+
+\subparagraph{lapply \& sapply: Use your area of a circle function to
+calculate a the area for a series of
+radii}\label{lapply-sapply-use-your-area-of-a-circle-function-to-calculate-a-the-area-for-a-series-of-radii}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?}\KeywordTok{lapply}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## starting httpd help server ... done
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?}\KeywordTok{sapply}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{Create a list of radii}\label{create-a-list-of-radii}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{radii <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\FloatTok{2.37}\NormalTok{,}\FloatTok{2.49}\NormalTok{,}\FloatTok{2.18}\NormalTok{,}\FloatTok{2.22}\NormalTok{,}\FloatTok{2.47}\NormalTok{,}\FloatTok{2.32}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{Make sure your AoC funcion is
+loaded}\label{make-sure-your-aoc-funcion-is-loaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{AoC <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+\NormalTok{  pi}\OperatorTok{*}\NormalTok{(x)}\OperatorTok{^}\DecValTok{2}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{test lapply on your list}\label{test-lapply-on-your-list}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{lapply}\NormalTok{(radii, AoC)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] 17.63707
+## 
+## [[2]]
+## [1] 19.46831
+## 
+## [[3]]
+## [1] 14.92254
+## 
+## [[4]]
+## [1] 15.47518
+## 
+## [[5]]
+## [1] 19.15683
+## 
+## [[6]]
+## [1] 16.90074
+\end{verbatim}
+
+**HINT: using the unlist() function is commone because the lapply's
+output isn't as intutive.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{unlist}\NormalTok{(}\KeywordTok{lapply}\NormalTok{(radii, AoC))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 17.63707 19.46831 14.92254 15.47518 19.15683 16.90074
+\end{verbatim}
+
+\subparagraph{sapply simplifies this task because in our case all
+objects are the same data
+type.}\label{sapply-simplifies-this-task-because-in-our-case-all-objects-are-the-same-data-type.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sapply}\NormalTok{(radii, AoC)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 17.63707 19.46831 14.92254 15.47518 19.15683 16.90074
+\end{verbatim}
+
+\subsubsection{OPTIONAL: Exploring
+Loops}\label{optional-exploring-loops}
+
+\paragraph{While Loops}\label{while-loops}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{while}\NormalTok{ (condition) \{}
+\NormalTok{  expression}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{Counter Example}\label{counter-example}
+
+Lets set a counter (ctr) to run while ctr is less than 7 and print ctr
+is set to ``counter''
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ctr <-}\StringTok{ }\DecValTok{1}
+
+\ControlFlowTok{while}\NormalTok{( ctr }\OperatorTok{<=}\StringTok{ }\DecValTok{7}\NormalTok{) \{}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"ctr is set to"}\NormalTok{, ctr))}
+\NormalTok{  ctr <-}\StringTok{ }\NormalTok{ctr }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "ctr is set to 1"
+## [1] "ctr is set to 2"
+## [1] "ctr is set to 3"
+## [1] "ctr is set to 4"
+## [1] "ctr is set to 5"
+## [1] "ctr is set to 6"
+## [1] "ctr is set to 7"
+\end{verbatim}
+
+\paragraph{For Loops}\label{for-loops}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ (var }\ControlFlowTok{in}\NormalTok{ seq)\{}
+\NormalTok{  expression}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{Cities Example}\label{cities-example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cities  <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"New York"}\NormalTok{, }\StringTok{"Paris"}\NormalTok{, }\StringTok{"London"}\NormalTok{,}
+             \StringTok{"Tokyo"}\NormalTok{, }\StringTok{"Rio de Janeiro"}\NormalTok{, }\StringTok{"Cape Town"}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ (city }\ControlFlowTok{in}\NormalTok{ cities)\{}
+  \KeywordTok{print}\NormalTok{(city)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}

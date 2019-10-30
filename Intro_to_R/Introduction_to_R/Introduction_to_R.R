@@ -25,8 +25,8 @@ browseURL("https://twitter.com/johansen_phd")
 #Multiplication (*)
 12*20
 
-#Division (/)
-20/5
+#Division (/)20/5
+
 
 #Equation 
 sin(pi*15)/100
@@ -244,10 +244,10 @@ gapminder[1:10,c(1:3, 5)]
 max(gapminder$gdpPercap)
 
 #Lets find the row number of the country with the highest gpdpercap
-which(gapminder== max(gapminder$pop))
+which.max(gapminder$gdpPercap)
 
 #Then show me all columns for row 20
-mtcars[20,]
+gapminder[854,]
 
 
 #### 2. The filter verb ####
@@ -293,11 +293,6 @@ gapminder %>%
   mutate(gdp = gdpPercap * pop) %>% 
   filter(year == 2007) %>% 
   arrange(desc(gdp))
-
-##################### NEED TO WORK HERE ######################################## 
-
-
-
 
 ## The Summarize Verb --------------------------------------------
 # Summarize entire data set
@@ -452,3 +447,5 @@ cities  <- c("New York", "Paris", "London",
 for (city in cities){
   print(city)
 }
+
+?mtcars

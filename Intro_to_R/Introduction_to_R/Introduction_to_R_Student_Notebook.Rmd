@@ -1,0 +1,581 @@
+---
+title: "Introduction to R Workbook"
+author: "Richard Johansen"
+date: "10/31/2019"
+output:
+  html_document:
+    df_print: paged
+  html_notebook: default
+  pdf_document: default
+---
+## Workshop Summary and Contact Information
+
+**Summary:** R is a free and powerful programming language that is commonly used by researchers in both qualitative and quantitative disciplines. R provides a near comprehensive, and still expanding set of research and data analysis tools. This workshop provides a gradual introduction to the basics of programming with R using R Studio. As a participant in this workshop you will accomplish the following: explore the R Studio interface, perform basic data manipulation using the Tidyverse, learn how to install and run packages, and learn the basics of programming with R. The focus of this workshop will be hands-on exercises to provide a deeper and more effective understanding of R. No programming experience is required, and beginners are encouraged to attend.
+
+**Contact:**   
+Email: AskData@uc.edu  
+Location: 240 Braunstein Hall (GMP Library)  
+Research & Data Services Website: https://libraries.uc.edu/research-teaching-support/research-data-services.html
+GitHub: https://github.com/RAJohansen/UCL_Workshops
+Twitter: https://twitter.com/johansen_phd
+
+
+### Section I: Coding Basics 
+
+#### 1. R as a Calculator/Working with Mathematical Operators
+
+##### Addition (+)
+```{r}
+
+```
+
+##### Subtraction (-)
+```{r}
+
+```
+
+
+##### Multiplication (*)
+```{r}
+
+```
+
+##### Division (/)
+```{r}
+
+```
+
+##### Equation 
+```{r}
+
+```
+
+#### 2.  Objects and Assignment Statements
+R stores values and objects so they can be reused throughout an equation or script
+
+##### Object Assignment
+```{r}
+
+```
+
+##### Working with multiple objects
+Hint alt - is a shortcut for the < - 
+```{r}
+
+```
+
+#### 3. Naming Convention ####
+
+##### Quick tips for naming convention:
+Short & sweet\
+Case sensative: x != X\
+Must Start with a letter\
+Only numbers, letters, _, and .\
+
+##### Cases:
+snake case: "i_use_snake_case"\
+Camel Case:  "iUseCamelCase"\
+periods: "i.use.periods"\
+combinations: "iCant_decide.which_toUse"\
+
+#### 4. Using Comments
+The # sign is used to create a comment, which are essential for reproducible code/
+Remember, your most likely collaborator is future you!!
+
+##### Simple example
+```{r}
+
+```
+
+##### More complicated
+```{r}
+
+```
+
+##### What is this calculating?
+Can we rewrite this so others have an easier time understanding it?\
+
+```{r}
+
+```
+
+This still is somewhat intuitive but what if you're making your own formula?\
+HINT: Do not use "magic" numbers\
+Every number standalone number should have a description Example p above.\
+
+#### 5. Creating a series of numbers
+Lets say you want to create a series of numbers from 1-10 and call the object "series"\
+You can use the c function to combine elements together\
+```{r}
+
+```
+
+However what if you wanted to create a series to 100?\
+Using c() would take too long, so we use a range of values by using the ":"\
+```{r}
+
+```
+
+Easy right? This is because the series is in order but what if we want a series of 1:100 by 2?\
+This is were we want to introduce functions
+
+#### 6. Understanding how to interpret functions
+General recipe for functions:
+```{r eval=FALSE}
+function_name(argument #1 = value #1,
+              argument #2 = value #2)
+```
+
+Going back to our series task, we want to create a series of numbers from 1 to 100 by 2. Luckily there are many functions already available to use in base R (many many more available from packages, which we will discuss later).\
+\
+Given that we are just learning R, I will tell you that the function is called "seq()"\
+The first thing I do when using a new functions is to look at the documentation. You can use the ? to find R documentation.\
+
+**HINT: Scroll to the bottom of the help page for workable examples.**\
+```{r eval=FALSE}
+?seq()
+```
+
+#### 7. Getting Help in R
+**HINT: if you can't remember exactly what function you are looking for, Use Tab.**
+```{r eval=FALSE}
+me<tab>
+```
+
+
+Additionally, if you are not sure what the function is called try a fuzzy search.\
+
+```{r eval=FALSE}
+apropos("mea") 
+```
+
+### Section I Tasks
+Work with your neighbor or by yourself and explore the documentation to be able to complete the following:
+
+#### Task 1A:
+Create a sequence from 1 to 10 using the seq() function
+
+```{r}
+
+```
+
+#### Task 1B:
+Create a sequence of numbers from 50 to 150 by 3
+```{r}
+
+```
+
+#### Task 1C:
+Create a sequence of numbers from 25 to 0 decreasing by 5 and save it an object called "my_seq"
+```{r}
+
+```
+
+
+### Section II: Creating, Importing and Exporting data
+#### Data Types:
+Vectors: vectors (a row of numbers, also called 1-dimensional arrays)\
+Matrices: Matrices are nothing more than 2-dimensional vectors.\
+Data Frames: A data frame is a matrix with names above the columns. \
+Lists: The main advantage of lists is that the columns or collection of vectors, which don't have to be of the same length unlike matrices and data frames.\
+
+**HINT: However most of the time you will be working with data frames.**
+
+#### 1. Creating A data frame
+We can create a data frame by combining multiple vectors together
+
+```{r}
+employee <- c('John','Peter','Abby','Hope','Robert', 'Emily')
+salary <- c(15000, 23400, 26800, 22000,35000,45000)
+experience <- c(1,2,3,2,4,7)
+```
+
+
+Using the data.frame() function we can combine multiple vectors into a data frame
+```{r}
+
+```
+
+You can view the data by clicking in the upper right hand corrner on Company, or use code through the View() function
+```{r eval=FALSE}
+
+```
+
+Another way to explore your new data frame quickly is by using the head() function.
+```{r}
+
+```
+
+#### 2. Saving A data frame
+##### File Types:
+read_csv() #read csv into a tibble #read.csv() reads into a dataframe\
+read_csv2() # semicolon sv into a tibble #read.csv2() reads into a dataframe\
+read_tsv()  #Reads tab-deliminated into a tibble\
+read_delim() # reads files with any delimiter\
+read_fwf() #reads fixed width files\
+read_table() #reads common variation of fixed-width files separated by white space\
+
+**HINT:For more information explore the readr package **
+
+#### Saving (writing) data is simple in R
+
+```{r eval=FALSE}
+?write.csv()
+write.csv(x = <Name of R object>, file  = <"C:/temp/my_data.csv">)
+```
+
+Lets save our company data to our computer
+```{r eval=FALSE}
+
+```
+
+
+
+### Section III: Exploring the Tidyverse!
+
+#### Install and Load the tidyverse package
+
+```{r}
+require("tidyverse")
+require("gapminder")
+```
+
+#### Explore the Tidyverse 
+https://www.tidyverse.org/
+
+R packages only have to be installed once but loaded everytime.\
+Using require is a nice way to make sure every script has the packages needed which combines install.packages() & library()
+
+#### 1. Basic Data Exploration
+In this section we will use the gapminder data set
+https://www.gapminder.org/
+
+##### Lets assign this to gapminder
+```{r}
+gapminder <- gapminder
+```
+
+##### View our table
+```{r eval=FALSE}
+
+```
+
+##### Lists the variables 
+```{r}
+
+```
+
+##### Lets Examine the structure of the data
+```{r}
+
+```
+
+This will become very useful when we visualize or analyze data, because we must make sure our variables are in the appropriate format!!
+
+##### Statistical summary of the data
+```{r}
+
+```
+
+#### 2. Exploring our data further
+**HINT: Understanding how data is indexed is crutial for R programming**
+
+##### Lets look at column 2 
+```{r}
+
+```
+
+
+##### Lets look at row 5
+```{r}
+
+```
+
+
+##### What value is in row 5 column 3?
+```{r}
+
+```
+
+
+##### Based on this idea, we can make more complicated searches. Lets take the first ten observations and look at the variables:Country (1), Continent(2), Year (3), and population (5)
+```{r}
+
+```
+
+##### What if we want to know the highest gpdPercap
+```{r}
+max()
+
+```
+
+##### Lets find the row number of the country with the highest gpdpercap
+```{r}
+which.max()
+```
+
+#Then show me all columns for row that row
+
+```{r}
+
+```
+
+
+#### 2. The filter verb
+The filter verb is used to look at a subset of a data set.\
+Typically you combine filter with a pipe %>%
+
+```{r}
+gapminder %>% 
+
+```
+
+
+##### Multiple conditions
+```{r}
+gapminder %>% 
+
+```
+
+
+#### The arrange verb
+Used for sorting data by ascending or descending condition\
+
+##### Ascending Order
+```{r}
+gapminder %>% 
+ 
+```
+
+
+##### Descending order
+```{r}
+gapminder %>% 
+
+```
+
+
+##### Combining verbs
+```{r}
+gapminder %>% 
+
+```
+
+
+#### The mutate verb
+Change or Add variables to a data set
+
+##### Change a variable
+```{r}
+
+```
+
+
+##### Add a new variable called gdp
+```{r}
+gapminder %>% 
+
+```
+
+### Combine all three verbs 
+```{r}
+gapminder %>% 
+
+```
+
+#### The Summarize Verb 
+##### Summarize entire data set
+Returns the mean of all rows (one value)
+```{r}
+gapminder %>% 
+
+```
+
+##### What if we want to return the mean life exp just for 2007
+```{r}
+gapminder %>% 
+
+```
+
+
+##### Creating multiple Summaries
+```{r}
+gapminder %>% 
+
+```
+
+**HINT: What data type is pop? Use str(gapminder)**
+
+##### Convert pop to a numeric data type instead of an integer
+```{r}
+as.numeric()
+```
+
+
+#### The group_by Verb 
+The group_by verb is useful for creating aggregated groups, especially when combined with the summarize function
+
+##### Summarize by each unique year
+```{r}
+gapminder %>% 
+
+```
+
+
+##### Summarize data from 2007 by continent
+```{r}
+gapminder %>% 
+
+```
+
+##### What if we want to summarize by continent over all years?
+**HINT: Simply add an additional arguement to the group_by verb**
+```{r}
+gapminder %>% 
+
+```
+
+### Section III Tasks
+Answer the following questions using the mtcars dataset
+```{r}
+mtcars <- mtcars
+```
+
+##### Task 3A. find the median mpg & wt for each group of cylinders  
+```{r}
+mtcars %>% 
+
+```
+
+
+
+##### Task 3B. find the mean of hp and drat for each group of gear and cyl & 
+          #find the ratio between mean hp and mean drat
+          
+```{r}
+mtcars %>% 
+
+```
+
+
+### Section IV: Programming with R
+#### Writing Functions
+Functions are like black boxes but in this case you are creating the box
+
+##### Function recipe
+```{r eval = FALSE}
+my_fun <- function(arg1, arg2) {
+  body
+}
+```
+
+
+##### Example #1
+Lets write a function that outputs 3x the input, x, and call the function triple()
+
+```{r}
+
+```
+
+
+##### Test the triple function
+**Hint: the last argument of the r function is automatically returned**
+```{r}
+triple(6)
+triple(10)
+triple(-1.3)
+```
+
+##### Example #2
+Lets write a function that outputs the area of circle. In this case we only need one input, the radius, since pi constant.
+
+```{r}
+
+```
+
+
+##### Test AoC function
+```{r}
+AoC(4)
+AoC(10)
+AoC(2.35)
+```
+
+#### Apply Family
+Running loops is extremely common in programming. One power aspect to R is that it has built in functions that make running loops easier than using traditional for and while loops. These functions are contained in the apply family, which we will briefly cover.
+
+##### lapply & sapply: Use your area of a circle function to calculate a the area for a series of radii
+```{r eval =FALSE}
+?lapply()
+?sapply()
+```
+
+
+##### Create a list of radii
+```{r}
+radii <- list(2.37,2.49,2.18,2.22,2.47,2.32)
+```
+
+##### Make sure your AoC funcion is loaded
+```{r}
+AoC <- function(x) {
+  pi*(x)^2
+}
+```
+
+##### test lapply on your list
+```{r}
+
+```
+
+**HINT: using the unlist() function is commone because the lapply's output isn't as intutive.
+```{r}
+unlist()
+```
+
+##### sapply simplifies this task because in our case all objects are the same data type.
+```{r}
+
+```
+
+
+### OPTIONAL: Exploring Loops 
+
+
+#### While Loops
+
+```{r eval = FALSE}
+while (condition) {
+  expression
+}
+```
+
+##### Counter Example 
+Lets set a counter (ctr) to run while ctr is less than 7 and print ctr is set to "counter"
+```{r}
+ctr <- 1
+
+while( ctr <= 7) {
+  print(paste("ctr is set to", ctr))
+  ctr <- ctr + 1
+}
+```
+
+#### For Loops
+```{r eval=FALSE} 
+for (var in seq){
+  expression
+}
+```
+
+##### Cities Example
+
+```{r eval=FALSE}
+cities  <- c("New York", "Paris", "London",
+             "Tokyo", "Rio de Janeiro", "Cape Town")
+
+for (city in cities){
+  print(city)
+}
+
+```
