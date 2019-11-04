@@ -1,4 +1,9 @@
 ---
+title: "R Notebook"
+output: html_notebook
+---
+
+---
 title: "Data_Analysis_With_R"
 author: "Richard Johansen"
 date: "November 4, 2019"
@@ -474,7 +479,7 @@ plot(lines, type="o", col="blue",
 ```
 
 
-#### 10. Get Inspired!!!  
+#### 10. Get Inspired!!! 
 ##### Use the Iris data set to make a scatterplot matrix
 
 ```{r}
@@ -668,4 +673,6 @@ confint(reg1) #Confindence intervals for coefficients
 resid(reg1)
 hist(residuals(reg1)) #histogram of the residuals
 ```
+
+
 
