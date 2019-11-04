@@ -336,12 +336,12 @@ Useful resources for using base plot in R\
 https://www.harding.edu/fmccown/r/\
 https://www.statmethods.net/graphs/index.html\
 
-#### Default Plot
+#### 1. Default Plot
 ```{r}
 plot(mtcars$mpg)
 ```
 
-#### Dotchart
+#### 2. Dotchart
 ```{r}
 dotchart(mtcars$mpg)
 ```
@@ -355,7 +355,7 @@ dotchart(mtcars$mpg,
          xlab="Miles Per Gallon")
 ```
 
-#### Histogram
+#### 3. Histogram
 ```{r}
 hist(mtcars$mpg)
 ```
@@ -368,7 +368,7 @@ hist(mtcars$mpg, breaks=10, col="red")
 hist(mtcars$mpg, breaks=15, col="red")
 ```
 
-#### Kernel Density Plot
+#### 4. Kernel Density Plot
 First you need to save the density of the data you want to an R object\
 Then plot that object using plot()
 ```{r}
@@ -376,7 +376,7 @@ d <- density(mtcars$mpg) # returns the density data
 plot(d) # plots the results
 ```
 
-#### Barplot
+#### 5. Barplot
 ```{r}
 barplot(mtcars$cyl)
 ```
@@ -406,7 +406,7 @@ barplot(counts,
 
 ```
 
-#### Box Plots
+#### 6. Box Plots
 ```{r}
 boxplot(mtcars$mpg~mtcars$cyl)
 ```
@@ -420,7 +420,7 @@ boxplot(mpg~cyl,
         ylab="Miles Per Gallon")
 ```
 
-#### Pie Charts
+#### 7. Pie Charts
 
 ```{r}
 slices <- table(mtcars$cyl)
@@ -430,7 +430,7 @@ pie(slices,
     main="Pie Chart of mtcars Cylindars")
 ```
 
-#### Scatterplot
+#### 8. Scatterplot
 ##### Simple Scatterplot
 ```{r}
 plot(mtcars$wt,mtcars$mpg)
@@ -456,7 +456,7 @@ plot(mtcars$wt, mtcars$mpg,
      abline(lm(mtcars$mpg~mtcars$wt), col="red"))
 ```
 
-####Line Graphs
+#### 9. Line Graphs
 ```{r}
 lines <- c(1:2,4,7,5,8,10,7)
 plot(lines)
@@ -474,6 +474,202 @@ plot(lines, type="o", col="blue",
 ```
 
 
+#### 10. Get Inspired!!!   -------------------------------
+##### Use the Iris data set to make a scatterplot matrix
+
+```{r}
+data("iris")
+pairs(iris[1:4]) #only quantitative variables
+```
+
+
+##### Explore pastel theme in RColorBrewer
+```{r}
+require("RColorBrewer")
+display.brewer.pal(3,"Pastel1") #display colorpalette
+```
+
+
+##### Use the function below to modify the scatterplot matrix
+Put Histograms on the diagonal (from "pairs" Help)
+```{r}
+panel.hist  <- function(x,...)
+{
+  usr <- par("usr"); on.exit(par(usr))
+  par(usr = c(usr[1:2], 0,1.5) )
+  h <- hist(x, plot = FALSE)
+  breaks <- h$breaks; nB <- length(breaks)
+  y <- h$counts; y <- y/max(y)
+  rect(breaks[-nB], 0, breaks[-1], y, ...)
+}
+```
+
+##### Create a fancy scatterplot matrix
+```{r}
+pairs(iris[1:4],
+      panel = panel.smooth,
+      main = "Scatterplot Maxtris for Iris Data Using pairs Function",
+      diag.panel = panel.hist,
+      pch = 16,
+      col = brewer.pal(3, "Pastel1")[unclass(iris$Species)])
+```
+
+##### Saving a plot
+```{r}
+jpeg('C:/temp/My_Awesome_Plot.jpg')
+# Run your fancy scatter plot matrix code here!
+dev.off()
+```
+
+### Section IV: Data Analysis
+#### 1. Basic Stats with R
+Statistics are used to summerize data!\
+We use stats because it is difficult to memorize and decipher raw numbers\
+
+#####**Example 1: Average daily car traffic for a week **
+```{r}
+total <- sum(5,16,15,16,13,20,25)
+days <- 7
+total/days
+```
+
+##### Two basic types of Statistics
+**Descriptive Stats:** Uses data to describe the characteristics of a group
+**Inferential Stats:** Uses the data to make predictions or draw conclusions
+
+#### 2. Calculating descriptive statistics 
+One variable
+```{r}
+summary(mtcars$mpg)
+```
+
+Entire Data set
+```{r}
+summary(mtcars)
+```
+
+Tukey's five-number summary: Min, Lower-hinge, Median, Upper-Hinge, Max (Not Labeled)
+**Hint:: These five numbers are the same as a boxplot**
+
+```{r}
+fivenum(cars$mpg)
+```
+
+##### Alternative Descriptive Stats using the psych package
+vars, n, mean, sd, median, trimmed, mad, min, max, range, skew, kurtosis, se
+```{r}
+#install.packages("psych")
+library(psych)
+describe(mtcars)  #vars, n, mean, sd, median, trimmed, mad, min, max, range, skew, kurtosis, se
+```
+
+##### Alternative Descriptive Stats using the pastecs pacakge
+```{r}
+#install.packages("pastecs")
+library(pastecs)
+?stat.desc()
+stat.desc(mtcars)
+```
+
+#### 3. Analyzing data by groups
+For this section we will use the iris dataset
+```{r}
+data(iris)
+View(iris)
+mean(iris$Petal.Width) #mean of all observation's petal.width
+```
+
+##### Split the data file and repeat analysis using "aggregate"
+Allowing for the comparison of means by group
+```{r}
+aggregate(iris$Petal.Width ~ iris$Species, FUN = mean) # ~ means a function of...
+means <- aggregate(iris$Petal.Width ~ iris$Species, FUN = mean)
+plot(means)
+```
+**Hint:: There is significant difference between species **
+
+##### Conducting multiple calculations at once
+**Hint: The results do not keep the column headers so you need to remember the order you wrote them**
+```{r}
+aggregate(cbind(iris$Petal.Width, iris$Petal.Length)~ iris$Species, FUN = mean)
+```
+
+#### 4. Calculating Correlations
+
+##### Load the mtcars dataset
+```{r}
+mtcars <- mtcars
+```
+
+##### Create a correlation matrix
+```{r}
+cor(mtcars)
+```
+
+##### Simplify the matrix to increase readability 
+We can use the round() function to wrap the cor() function
+```{r}
+round(cor(mtcars), 2)
+```
+
+##### Correlate One pair of variables at a time
+Derives r, hypothesis test, and CI\
+Pearson's product-moment correlation\
+```{r}
+cor.test(mtcars$mpg, mtcars$wt)
+```
+
+##### Graphical Check of bivariate regression
+```{r}
+hist(mtcars$mpg)
+hist(mtcars$wt)
+plot(mtcars$wt, mtcars$mpg, abline(lm(mtcars$mpg~mtcars$wt)))
+```
+
+
+#### 5. Creating a Linear regression model
+**Correlation:** is the strength of the association
+**Regression:** is a function that can be used to predict values of another variable
+
+##### Create a LM for miles per gallon & weight from mtcars
+```{r}
+reg1 <- lm(mpg~wt, data = mtcars)
+reg1
+```
+##### Generate a summary from our LM
+```{r}
+summary(reg1)
+```
+
+The slope being statsitcally significant means that wt is a good predictor of mpg\
+The variable weight can accounts for 0.75 or 75% of the variation in mpg\
+
+#### 6. Calculate Multiple Regression
+
+**Hint: Saving models as an R object allows for the extraction of additional information from model**
+
+##### Use Six Predictors to model mpg
+```{r}
+reg1 <- lm(mpg ~cyl + disp + hp + wt + gear + carb, 
+           data = mtcars)
+```
+
+##### Extract simple coefficents 
+```{r}
+reg1
+```
+##### Extract model details
+
+```{r}
+summary(reg1)
+anova(reg1)
+coef(reg1)
+confint(reg1) #Confindence intervals for coefficients
+resid(reg1)
+hist(residuals(reg1)) #histogram of the residuals
+```
+
+#### 7. Get Inspired!!!   -------------------------------
 
 
 
@@ -493,4 +689,26 @@ plot(lines, type="o", col="blue",
 
 
 
-title(main="My Line Graph")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
