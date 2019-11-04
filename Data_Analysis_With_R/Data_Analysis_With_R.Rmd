@@ -336,13 +336,12 @@ Useful resources for using base plot in R\
 https://www.harding.edu/fmccown/r/\
 https://www.statmethods.net/graphs/index.html\
 
-#### Using Base Plot
-#####Default Plot
+#### Default Plot
 ```{r}
 plot(mtcars$mpg)
 ```
 
-##### Dotchart
+#### Dotchart
 ```{r}
 dotchart(mtcars$mpg)
 ```
@@ -356,11 +355,10 @@ dotchart(mtcars$mpg,
          xlab="Miles Per Gallon")
 ```
 
-##### Histogram
+#### Histogram
 ```{r}
 hist(mtcars$mpg)
 ```
-
 
 ##### Add color and explore bin sizes
 
@@ -370,7 +368,7 @@ hist(mtcars$mpg, breaks=10, col="red")
 hist(mtcars$mpg, breaks=15, col="red")
 ```
 
-##### Kernel Density Plot
+#### Kernel Density Plot
 First you need to save the density of the data you want to an R object\
 Then plot that object using plot()
 ```{r}
@@ -378,7 +376,7 @@ d <- density(mtcars$mpg) # returns the density data
 plot(d) # plots the results
 ```
 
-##### Barplot
+#### Barplot
 ```{r}
 barplot(mtcars$cyl)
 ```
@@ -387,15 +385,18 @@ Then use the barplot() function on the object counts
 ```{r}
 counts <- table(mtcars$cyl)
 barplot(counts)
-
 ```
 
-#Add title and axis lable
+##### Add Chart Title and Axes
+
+```{r}
 barplot(counts, 
         main="Car Distribution", 
         xlab="Number of Gears")
+```
 
-# Stacked Bar Plot with Colors and legend
+##### Converting a Bar chart into a Stacked Bar
+```{r}
 counts <- table(mtcars$cyl, mtcars$gear)
 barplot(counts,
         main="Car Distribution by Cylinders and Gears",
@@ -403,41 +404,93 @@ barplot(counts,
         col = c("darkred","darkblue","orange"),
         legend = rownames(counts))
 
-### Box Plots
-# Boxplot of MPG by Car Cylinders 
+```
+
+#### Box Plots
+```{r}
 boxplot(mtcars$mpg~mtcars$cyl)
-# Boxplot with labels
+```
+
+##### Boxplot with labels
+```{r}
 boxplot(mpg~cyl,
         data=mtcars,
         main="Car Milage Data", 
         xlab="Number of Cylinders",
         ylab="Miles Per Gallon")
+```
 
-### Pie Charts
+#### Pie Charts
+
+```{r}
 slices <- table(mtcars$cyl)
 lbls <- c("Four", "Six", "Eight")
 pie(slices,
     labels = lbls,
     main="Pie Chart of mtcars Cylindars")
+```
 
-### Scatterplot
-# Simple Scatterplot
+#### Scatterplot
+##### Simple Scatterplot
+```{r}
 plot(mtcars$wt,mtcars$mpg)
+```
 
-#Add labels
+##### Add labels
+```{r}
 plot(mtcars$wt, mtcars$mpg,
      main="Scatterplot Example", 
      xlab="Car Weight ",
      ylab="Miles Per Gallon ",
      pch=19)
-#Add linear regression line 
-abline(lm(mtcars$mpg~mtcars$wt), col="red") # regression line (y~x) 
+```
 
-###Line Graphs
+#####Add linear regression line 
+Regression line is (y~x) 
+```{r}
+plot(mtcars$wt, mtcars$mpg,
+     main="Scatterplot Example", 
+     xlab="Car Weight ",
+     ylab="Miles Per Gallon ",
+     pch=19,
+     abline(lm(mtcars$mpg~mtcars$wt), col="red"))
+```
+
+####Line Graphs
+```{r}
 lines <- c(1:2,4,7,5,8,10,7)
 plot(lines)
+```
 
-# Graph line using blue points overlayed by a line 
+##### Graph line using blue points overlayed by a line 
+```{r}
 plot(lines, type="o", col="blue")
-#Add a title
+```
+
+##### Add a title
+```{r}
+plot(lines, type="o", col="blue",
+     main="My Line Graph")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 title(main="My Line Graph")
